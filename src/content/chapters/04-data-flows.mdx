@@ -4,6 +4,9 @@ description: Authentication paths, agentic loops, and how requests move through 
 ---
 
 import Section from '../../components/layout/Section.astro';
+import BlueprintFigure from '../../components/diagrams/BlueprintFigure.tsx';
+import Fig002AgenticFlow from '../../components/diagrams/Fig002AgenticFlow.tsx';
+import Fig003AuthFlow from '../../components/diagrams/Fig003AuthFlow.tsx';
 
 <p class="chapter-intro">
   Architecture diagrams show boxes; data-flow diagrams show time. This chapter walks through the sequences we documented on the Documents branch — login, agentic requests, and how dry-run approval gates every write to Canvas.
@@ -24,6 +27,10 @@ The level-one login diagram documents credential verification against Postgres, 
 After sign-in, protected pages (`/home`, `/settings`, `/action-history`, `/canvas-token-connection`) assume a valid JWT attached by the frontend API client. Token connection is a separate onboarding step: instructors must link Canvas developer credentials before the agent can retrieve course context.
 
 </Section>
+
+<BlueprintFigure id="FIG_003" caption="Level-1 authentication DFD — credential verification against Postgres with JWT session material in Redis." client:load>
+  <Fig003AuthFlow />
+</BlueprintFigure>
 
 <Section title="Agentic request loop" evidence={["EV-023", "EV-052"]}>
 
@@ -48,3 +55,7 @@ Every write action passes through preview confirmation. The data-flow diagram la
 If confirmation fails (Canvas API error, rate limit, validation mismatch), the user remains in the assistant context with retry options rather than silently partial-applying changes. Action history records both approved and rejected previews for auditability.
 
 </Section>
+
+<BlueprintFigure id="FIG_002" caption="Level-1 agentic request DFD — dry-run preview and explicit user confirmation before Canvas execution." client:load>
+  <Fig002AgenticFlow />
+</BlueprintFigure>
