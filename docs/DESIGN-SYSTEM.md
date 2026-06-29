@@ -1,9 +1,7 @@
-# Conductor — Design System
+# Libretto — Design System
 ### A technical-manual style guide for Group 1's capstone documentation site
 
-This system is reverse-engineered from screenshots of *Making Software* (makingsoftware.com) and adapted to document **Conductor**. The source treats software internals like an electronics teardown manual: blueprint diagrams, exploded-view illustrations, a reference-book typesetting system, and a dry, curious narrator. Conductor's own name (something that *routes/orchestrates*, and also literally *carries a signal*) maps onto that blueprint language unusually well — lean into it rather than fighting it.
-
-> **Assumption flag:** the diagram motifs below assume Conductor is some kind of orchestration/pipeline/agent-routing system. If that's wrong, swap "circuit/signal" diagrams for whatever Conductor's actual mental model is — the typographic and layout system underneath stays the same either way.
+This system is reverse-engineered from screenshots of *Making Software* (makingsoftware.com) and adapted for **Libretto** — the blueprint site documenting our capstone Canvas assistant. The source treats software internals like an electronics teardown manual: blueprint diagrams, exploded-view illustrations, a reference-book typesetting system, and a dry, curious narrator.
 
 All hex values are estimated by eye from the screenshots, not sampled with a color picker. Treat them as a strong starting palette, not ground truth — pull exact values once you have the real site open in a browser.
 
@@ -29,28 +27,17 @@ Rule: color is functional, not decorative. Blue means "this is a label, a line, 
 
 ## 2. Typography
 
-Three typefaces, three jobs, never mixed within a role.
-
-**Display / wordmark — blocky pixel monospace.**
-Used exactly once per page, for the project wordmark only (`CONDUCTOR`). Free equivalents: *Press Start 2P* or *Silkscreen* (Google Fonts). Set in `signal` blue, tight letter-spacing between glyphs but generous word-spacing, all caps. This typeface never appears in body copy, navigation, or UI chrome — its rarity is what makes it land.
-
-**Body — classic text serif.**
-All prose. Free equivalents: *PT Serif*, *Source Serif 4*, *Lora*, or system *Georgia*. Justified alignment, generous line-height (~1.6), measure capped around 65–75 characters. The opening paragraph of each chapter gets a drop cap (first letter, ~3 lines tall, same serif, `ink` color).
-
-**Label / mono — utility monospace.**
-Every piece of structural metadata: figure tags (`FIG-001`), table-of-contents numbers, word counts, nav items, vertical edge captions. Free equivalents: *IBM Plex Mono*, *JetBrains Mono*, *Space Mono*. Always uppercase, small (11–12px), tracked out slightly. Color is either `signal` (when it's a label/active element) or `ink-muted` (when it's secondary metadata like a word count).
-
-### Type scale
+**Libretto uses [Departure Mono](https://departuremono.com/) (SIL OFL) for everything** — wordmark, body, labels, and diagram captions. Font files are bundled locally at `public/fonts/departure-mono/`. Use sizes in **11px increments** per the typeface README.
 
 | Role | Size | Weight | Notes |
 |---|---|---|---|
-| Wordmark | 64–88px | regular | pixel font, `signal` |
-| Hero meta (subtitle) | 17–19px | regular | serif, right-aligned, `ink` |
-| Chapter index header | 14px | bold | mono, uppercase, `signal` |
-| Body | 17–18px | regular | serif, justified, `ink` |
-| Drop cap | 56–64px | regular | serif, `ink` |
-| Figure tag | 11px | medium | mono, uppercase, rotated 90° or vertical |
-| Caption / word count | 11–12px | regular | mono, `ink-muted` |
+| Wordmark | 66px (6×11) | regular | Departure Mono, `signal` |
+| Hero meta (subtitle) | 22px (2×11) | regular | Departure Mono, right-aligned, `ink` |
+| Chapter index header | 14px | regular | mono, uppercase, `signal` |
+| Body | 22px (2×11) | regular | Departure Mono, justified, `ink` |
+| Drop cap | 66px | regular | Departure Mono, `ink` |
+| Figure tag | 11px | regular | mono, uppercase, rotated 90° or vertical |
+| Caption / word count | 11px | regular | mono, `ink-muted` |
 
 ---
 
@@ -66,12 +53,11 @@ Every piece of structural metadata: figure tags (`FIG-001`), table-of-contents n
 ```
 ASCII WIREFRAME — hero
 ┌─────────────────────────────────────────────┐
-│ CONDUCTOR              A guide to how Group 1│
-│ [pixel wordmark]       built it. — Group 1   │
+│ LIBRETTO               A guide to how Group 1│
+│ [Departure Mono]       built it. — Group 1   │
 │ ▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦│
 │  H ave you ever wondered   [FIG-001 panel]   │
-│  how Conductor routes a                       │
-│  request between agents?                      │
+│  how a request routes between agents?         │
 └─────────────────────────────────────────────┘
 ```
 
@@ -81,7 +67,7 @@ ASCII WIREFRAME — hero
 
 This is the one thing the whole site should be remembered for: every concept gets a hand-drawn-feeling technical schematic, not a stock icon or screenshot. Line-art illustration, `signal`/`signal-mid` ink on a `bg-panel` dot-grid, arrows and dashed leaders pointing to mono-labeled parts, a `FIG-XXX` tag identifying it like a part number in a service manual.
 
-For Conductor specifically, treat its real architecture as the "hardware" — draw the literal shape of things: how a request enters the system, how it gets routed between agents or services, what the data structures actually look like exploded into parts, the same way the source draws an exploded floppy disk. The diagrams should look like they could've been pulled from Conductor's own internal engineering notes, not generated as decoration after the fact.
+Treat the capstone application's real architecture as the "hardware" — draw the literal shape of things: how a request enters the system, how it gets routed between agents or services, what the data structures actually look like exploded into parts, the same way the source draws an exploded floppy disk. The diagrams should look like they could've been pulled from internal engineering notes, not generated as decoration after the fact.
 
 ---
 
@@ -96,18 +82,18 @@ Use sparingly and only where it earns its keep:
 
 ## 6. Voice and copy
 
-Second person, curious, dry. Open sections with a question the reader has plausibly had ("Have you ever wondered how Conductor decides which agent handles a request?"), then answer it plainly and briefly, then let a short flat sentence land the point ("Pretty neat.").
+Second person, curious, dry. Open sections with a question the reader has plausibly had ("Have you ever wondered how the agent decides which tool handles a request?"), then answer it plainly and briefly, then let a short flat sentence land the point ("Pretty neat.").
 
 Don't write like documentation, write like someone explaining something they find genuinely interesting to a curious friend. Short paragraphs. No bullet-point feature lists in body copy — make the prose carry it. It's fine for the tone to be a little informal as long as the explanation underneath is accurate.
 
 ---
 
-## 7. Content structure (template — fill in with Conductor's real architecture)
+## 7. Content structure (template — fill in with real architecture)
 
 ```
 Table of Contents.
 
-1. WHAT CONDUCTOR DOES                    4. AGENTS AND ROUTING
+1. WHAT LIBRETTO COVERS                   4. AGENTS AND ROUTING
    - The problem it solves.                  - How a request is dispatched.
    - The shape of a request.                 - Agent-to-agent handoff.
 

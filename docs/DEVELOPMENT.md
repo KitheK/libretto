@@ -2,9 +2,9 @@
 
 > **For agentic workers:** Use superpowers:subagent-driven-development or superpowers:executing-plans for phased execution. Checkboxes track progress.
 
-**Goal:** Build **Libretto** (*the blueprint to Conductor*) in this repository, with every claim backed by direct links to evidence in [UBCO-COSC499-S2026/capstone-team-1](https://github.com/UBCO-COSC499-S2026/capstone-team-1).
+**Goal:** Build **Libretto** (*the blueprint to our capstone Canvas assistant*) in this repository, with every claim backed by direct links to evidence in [UBCO-COSC499-S2026/capstone-team-1](https://github.com/UBCO-COSC499-S2026/capstone-team-1).
 
-**Product:** Conductor (lives in capstone-team-1)  
+**Product:** Capstone application (lives in capstone-team-1)  
 **Site:** Libretto (this repo)  
 **Typography:** [Departure Mono](https://departuremono.com/)  
 **Design spec:** [DESIGN.md](./DESIGN.md)
@@ -72,7 +72,7 @@ No `website/` folder or Vercel config in capstone-team-1.
 
 ### Task 3: Evidence component + manifest ✅
 
-### Task 4: Sync conductor repo (read-only) ✅
+### Task 4: Sync capstone repo (read-only) ✅
 
 ### Task 5: MDX chapters + diagram primitives 🔄
 
@@ -164,8 +164,8 @@ Each task adds manifest entries and writes MDX prose. Sync `content/_sources/` b
 
 ### Task 15: Landing page polish
 
-- Hero: Libretto wordmark + Conductor one-liner
-- Prominent link to Conductor GitHub repo
+- Hero: Libretto wordmark + application one-liner
+- Prominent link to capstone GitHub repo
 - "All evidence lives in the capstone repository" callout
 - Chapter grid with completion badges
 
@@ -188,7 +188,7 @@ Each task adds manifest entries and writes MDX prose. Sync `content/_sources/` b
 ## Workflow
 
 ```text
-capstone-team-1 (Conductor)          libretto (this repo)
+capstone-team-1 (application)        libretto (this repo)
 ├── app/                             ├── sync-conductor.sh ──read──► capstone repo
 ├── docs/ (Documents branch)         ├── content/_sources/ (snapshots)
 ├── .github/workflows/                 ├── evidence/manifest.yaml ──links──► GitHub URLs

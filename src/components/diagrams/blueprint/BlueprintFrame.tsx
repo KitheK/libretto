@@ -13,7 +13,6 @@ export const BLUEPRINT = {
 export function BlueprintStyles() {
   return (
     <style>{`
-        @import url('https://departuremono.com/mono.css');
         .blueprint-text {
           font-family: 'Departure Mono', ui-monospace, monospace;
         fill: ${BLUEPRINT.ink};

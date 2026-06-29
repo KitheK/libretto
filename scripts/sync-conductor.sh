@@ -4,7 +4,7 @@ set -euo pipefail
 REPO="${CONDUCTOR_REPO:-https://github.com/UBCO-COSC499-S2026/capstone-team-1.git}"
 CACHE=".cache/conductor"
 
-echo "Syncing Conductor evidence from ${REPO}..."
+echo "Syncing capstone evidence from ${REPO}..."
 
 rm -rf "$CACHE"
 mkdir -p "$CACHE" content/_sources

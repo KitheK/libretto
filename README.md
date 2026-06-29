@@ -1,8 +1,8 @@
 # Libretto
 
-*The blueprint to [Conductor](https://github.com/UBCO-COSC499-S2026/capstone-team-1).*
+*The blueprint to our capstone Canvas assistant.*
 
-Personal documentation site (not affiliated with the course org). Animated blueprint documenting how Conductor was designed, built, and reviewed.
+Personal documentation site (not affiliated with the course org). Animated technical manual documenting how the application was designed, built, and reviewed.
 Every claim links to verifiable evidence in the capstone repository.
 
 | | |
@@ -21,6 +21,11 @@ npm run sync:conductor   # optional — pulls read-only snapshots from capstone-
 npm run dev
 ```
 
+## Fonts
+
+Departure Mono v1.500 is bundled locally at `public/fonts/departure-mono/` (SIL OFL).
+Use font sizes in **11px increments** per the typeface README.
+
 ## Scripts
 
 | Command | Purpose |
@@ -32,7 +37,5 @@ npm run dev
 
 ## Repository split
 
-- **Conductor** — application code lives in `capstone-team-1`
+- **Capstone application** — code lives in `capstone-team-1`
 - **Libretto** — this repo; site code, diagrams, evidence manifest only
-
-No Libretto deploy config or site code belongs in the capstone repo.

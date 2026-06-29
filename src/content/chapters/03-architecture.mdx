@@ -8,10 +8,10 @@ import BlueprintFigure from '../../components/diagrams/BlueprintFigure.tsx';
 import Fig001SystemArchitecture from '../../components/diagrams/Fig001SystemArchitecture.tsx';
 
 <p class="chapter-intro">
-  Conductor’s architecture evolved from early component diagrams into a Docker Compose microservice stack. This chapter explains the topology we chose, why the frontend never talks to backend services directly, and how each service owns a slice of business logic.
+  The application’s architecture evolved from early component diagrams into a Docker Compose microservice stack. This chapter explains the topology we chose, why the frontend never talks to backend services directly, and how each service owns a slice of business logic.
 </p>
 
-<BlueprintFigure id="FIG_001" caption="Conductor runtime topology — frontend via Kong to four backend services, Redis pub/sub event bus, and isolated Canvas REST access (SystemArchitecture.md)." client:load>
+<BlueprintFigure id="FIG_001" caption="Runtime topology — frontend via Kong to four backend services, Redis pub/sub event bus, and isolated Canvas REST access (SystemArchitecture.md)." client:load>
   <Fig001SystemArchitecture />
 </BlueprintFigure>
 

@@ -6,7 +6,7 @@ description: Schema design, entity relationships, and persistence decisions.
 import Section from '../../components/layout/Section.astro';
 
 <p class="chapter-intro">
-  Conductor splits durable state across Postgres schemas while Redis handles ephemeral session and pub/sub traffic. This chapter explains the entities we modeled during design, how they support auth and agent memory, and why we separated course cache from canonical Canvas data.
+  The application splits durable state across Postgres schemas while Redis handles ephemeral session and pub/sub traffic. This chapter explains the entities we modeled during design, how they support auth and agent memory, and why we separated course cache from canonical Canvas data.
 </p>
 
 <Section title="Modeling approach" evidence={["EV-030", "EV-031"]}>

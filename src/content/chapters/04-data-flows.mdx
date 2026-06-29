@@ -34,7 +34,7 @@ After sign-in, protected pages (`/home`, `/settings`, `/action-history`, `/canva
 
 <Section title="Agentic request loop" evidence={["EV-023", "EV-052"]}>
 
-The agentic level-one flow is the conceptual heart of Conductor. A user sends natural-language intent to the agent handler. The handler consults the LLM, which may request Canvas data; the handler routes data requests to the Canvas API; the LLM returns a dry-run preview; the user confirms; only then does execution propagate back to Canvas.
+The agentic level-one flow is the conceptual heart of the application. A user sends natural-language intent to the agent handler. The handler consults the LLM, which may request Canvas data; the handler routes data requests to the Canvas API; the LLM returns a dry-run preview; the user confirms; only then does execution propagate back to Canvas.
 
 The orchestrator code on the development branch implements this loop with explicit state for tool calls, approvals, and error recovery. Redis holds in-flight conversation turns; Postgres checkpoints completed steps so reconnecting clients can rebuild history.
 

@@ -6,7 +6,7 @@ interface Props {
 
 const { title, navCurrent = 'guides' } = Astro.props;
 
-const conductorRepo = 'https://github.com/UBCO-COSC499-S2026/capstone-team-1';
+const capstoneRepo = 'https://github.com/UBCO-COSC499-S2026/capstone-team-1';
 const librettoRepo = 'https://github.com/KitheK/libretto';
 const year = new Date().getFullYear();
 ---
@@ -16,14 +16,14 @@ const year = new Date().getFullYear();
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Libretto — the blueprint to Conductor" />
+    <meta name="description" content="Libretto — the blueprint to our capstone Canvas assistant" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <title>{title ? `${title} · Libretto` : 'Libretto — Conductor'}</title>
+    <title>{title ? `${title} · Libretto` : 'Libretto'}</title>
   </head>
   <body>
     <div class="site-canvas">
       <header class="site-header">
-        <a class="site-header__brand" href="/">Conductor</a>
+        <a class="site-header__brand" href="/">Libretto</a>
         <nav class="site-header__nav" aria-label="Primary">
           <a href="/chapters/03-architecture" aria-current={navCurrent === 'system' ? 'page' : undefined}>System</a>
           <a href="/chapters/04-data-flows" aria-current={navCurrent === 'flows' ? 'page' : undefined}>Flows</a>
@@ -38,11 +38,11 @@ const year = new Date().getFullYear();
       </main>
 
       <footer class="site-footer">
-        <p>© {year} Conductor · UBCO COSC499 Group 1</p>
+        <p>© {year} Libretto · UBCO COSC499 Group 1</p>
         <p class="site-footer__meta">
           <span>[REV-08]</span>
           <span>STABLE_BUILD</span>
-          <a href={conductorRepo}>DOC_METADATA</a>
+          <a href={capstoneRepo}>CAPSTONE_REPO</a>
         </p>
       </footer>
     </div>

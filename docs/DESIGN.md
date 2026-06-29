@@ -1,7 +1,7 @@
 # Libretto — Design Spec
 
-**Site name:** **Libretto** — *the blueprint to Conductor*  
-**Product:** **Conductor** — agentic AI for instructors to manage Canvas courses via natural language  
+**Site name:** **Libretto** — *the blueprint to our capstone Canvas assistant*  
+**Product:** Capstone application (`capstone-team-1` / `app/`) — agentic AI for instructors to manage Canvas courses via natural language  
 **Source of truth (evidence):** [UBCO-COSC499-S2026/capstone-team-1](https://github.com/UBCO-COSC499-S2026/capstone-team-1)  
 **Libretto repository:** [KitheK/libretto](https://github.com/KitheK/libretto) (personal project)  
 **Course:** UBCO COSC499 S2026 (Summer)  
@@ -14,8 +14,8 @@
 
 | Repo | Contains | Does NOT contain |
 |------|----------|------------------|
-| **capstone-team-1** | Conductor application (`app/`), course docs, CI for services | Libretto site code, Vercel config, animated diagrams |
-| **libretto** | Astro site, MDX chapters, SVG diagrams, evidence manifest, sync scripts | Conductor service source code |
+| **capstone-team-1** | Capstone application (`app/`), course docs, CI for services | Libretto site code, Vercel config, animated diagrams |
+| **libretto** | Astro site, MDX chapters, SVG diagrams, evidence manifest, sync scripts | Capstone service source code |
 
 **Cross-linking:** When ready, capstone `README.md` gets a single line linking to the deployed Libretto URL and this repo. No `website/` folder in capstone-team-1.
 
@@ -80,15 +80,15 @@ At build time (local + CI):
 
 | Name | Use |
 |------|-----|
-| **Conductor** | Product (`capstone-team-1` / `app/`) |
+| **Capstone application** | Product (`capstone-team-1` / `app/`) |
 | **Libretto** | Blueprint website (this repo + deploy URL) |
-| Tagline | *The blueprint to Conductor* |
+| Tagline | *The blueprint to our capstone Canvas assistant* |
 
 ---
 
 ## Site purpose
 
-1. **What** Conductor is — with charter/plan evidence  
+1. **What** the application is — with charter/plan evidence  
 2. **How** it was designed — architecture, flows, UI — linked to design docs + code  
 3. **How** the team builds it — PR/CI process — linked to charter + `.github/`  
 4. **When** — timeline — linked to weekly logs + issues/PRs  

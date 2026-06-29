@@ -11,7 +11,7 @@ export type TocColumn = {
 
 export const tableOfContents: TocColumn[] = [
   {
-    heading: '1. WHAT CONDUCTOR DOES',
+    heading: '1. WHAT LIBRETTO COVERS',
     items: [
       { label: 'Mission and product intent', href: '/chapters/01-mission', rev: 'REV 1' },
       { label: 'Requirements and personas', href: '/chapters/02-requirements', rev: 'REV 2' },

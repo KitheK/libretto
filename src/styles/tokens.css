@@ -10,7 +10,6 @@
   --signal-pale: #dce2fb;
   --hairline: #e4e6ed;
 
-  /* legacy aliases */
   --color-paper: var(--bg-paper);
   --color-ink: var(--ink);
   --color-ink-muted: var(--ink-muted);
