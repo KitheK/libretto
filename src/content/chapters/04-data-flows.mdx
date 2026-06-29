@@ -1,11 +1,50 @@
 ---
 title: Data flows
-description: Request paths from browser to backend services.
+description: Authentication paths, agentic loops, and how requests move through the stack.
 ---
 
-import Evidence from '../../components/evidence/Evidence.astro';
+import Section from '../../components/layout/Section.astro';
 
-Chapter stub — document frontend routes, auth flows, and DFD diagrams from the `Documents` branch.
+<p class="chapter-intro">
+  Architecture diagrams show boxes; data-flow diagrams show time. This chapter walks through the sequences we documented on the Documents branch — login, agentic requests, and how dry-run approval gates every write to Canvas.
+</p>
 
-<Evidence id="EV-011" />
-<Evidence id="EV-030" />
+<Section title="Level 0 — system context" evidence={["EV-022"]}>
+
+The level-zero DFD places the instructor outside the system boundary. All Canvas mutations and reads cross that boundary through our connector service, never from the browser directly. This matches the security model in the project plan: OAuth tokens and API keys stay server-side, and the frontend holds only session JWTs issued by our auth service.
+
+Level zero also clarifies which processes are synchronous HTTP (login, dashboard fetch) versus streaming (agent step updates via notification WebSocket). That distinction drove Kong route design and frontend state management choices.
+
+</Section>
+
+<Section title="Authentication flow" evidence={["EV-024", "EV-021"]}>
+
+The level-one login diagram documents credential verification against Postgres, JWT generation, and Redis session storage for fast validation and logout blacklisting. In implementation, the auth service exposes routes under `/api/auth` while the React app routes unauthenticated users to `/login`.
+
+After sign-in, protected pages (`/home`, `/settings`, `/action-history`, `/canvas-token-connection`) assume a valid JWT attached by the frontend API client. Token connection is a separate onboarding step: instructors must link Canvas developer credentials before the agent can retrieve course context.
+
+</Section>
+
+<Section title="Agentic request loop" evidence={["EV-023", "EV-052"]}>
+
+The agentic level-one flow is the conceptual heart of Conductor. A user sends natural-language intent to the agent handler. The handler consults the LLM, which may request Canvas data; the handler routes data requests to the Canvas API; the LLM returns a dry-run preview; the user confirms; only then does execution propagate back to Canvas.
+
+The orchestrator code on the development branch implements this loop with explicit state for tool calls, approvals, and error recovery. Redis holds in-flight conversation turns; Postgres checkpoints completed steps so reconnecting clients can rebuild history.
+
+</Section>
+
+<Section title="Frontend routing and API paths" evidence={["EV-021", "EV-011"]}>
+
+`App.tsx` defines the client route map: login at `/`, dashboard home at `/home`, settings, Canvas token connection, and action history. Each screen calls Kong-prefixed REST endpoints rather than service ports directly, preserving a single origin policy during local development (Vite proxy or explicit gateway URL).
+
+Gateway JWT plugins on agent, notify, and connector routes mean the frontend must attach bearer tokens on mutating calls. We documented expected failure modes — expired session, missing Canvas token, 403 on course scope — in both the frontend requirements and error-handling sections of the plan.
+
+</Section>
+
+<Section title="Human-in-the-loop gate" evidence={["EV-006", "EV-023"]}>
+
+Every write action passes through preview confirmation. The data-flow diagram labels this “Confirms dry run” explicitly; product requirements assign it a 100% interception success criterion. UI-wise, the dry-run modal blocks navigation until the user approves or cancels, matching the Figma navigation rule that all write paths funnel through preview.
+
+If confirmation fails (Canvas API error, rate limit, validation mismatch), the user remains in the assistant context with retry options rather than silently partial-applying changes. Action history records both approved and rejected previews for auditability.
+
+</Section>

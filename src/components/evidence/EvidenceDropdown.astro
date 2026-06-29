@@ -1,0 +1,48 @@
+---
+import { getEvidence } from '../../lib/evidence';
+
+interface Props {
+  ids: string[];
+}
+
+const { ids } = Astro.props;
+
+const entries = ids
+  .map((id) => {
+    const entry = getEvidence(id);
+    return entry ? { id, ...entry } : null;
+  })
+  .filter((entry): entry is { id: string; label: string; url: string } => entry !== null);
+
+const missing = ids.filter((id) => !getEvidence(id));
+---
+
+<details class="evidence-dropdown">
+  <summary class="evidence-dropdown__trigger">
+    <span class="evidence-dropdown__label">Sources</span>
+    <span class="evidence-dropdown__count">{ids.length}</span>
+  </summary>
+  {entries.length > 0 && (
+    <ul class="evidence-dropdown__list">
+      {entries.map((entry) => (
+        <li>
+          <a
+            class="evidence-dropdown__link"
+            href={entry.url}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <span class="evidence-dropdown__title">{entry.label}</span>
+            <span class="evidence-dropdown__id">{entry.id}</span>
+            <span class="evidence-dropdown__icon" aria-hidden="true">↗</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  )}
+  {missing.length > 0 && (
+    <p class="evidence-dropdown__missing">
+      Missing manifest entries: {missing.join(', ')}
+    </p>
+  )}
+</details>

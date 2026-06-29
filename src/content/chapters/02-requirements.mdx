@@ -1,11 +1,50 @@
 ---
 title: Requirements
-description: Personas, scope, and planning documents.
+description: Personas, safety constraints, and the functional scope we designed against.
 ---
 
-import Evidence from '../../components/evidence/Evidence.astro';
+import Section from '../../components/layout/Section.astro';
 
-Chapter stub — expand with personas and scope from `docs/plan/project_planning.md` on the `Documents` branch.
+<p class="chapter-intro">
+  Before writing service code, the team produced a formal project plan on the Documents branch. This chapter explains how we translated instructor pain points into personas, scenarios, and testable requirements — the contract every later design review measured against.
+</p>
 
-<Evidence id="EV-001" />
-<Evidence id="EV-020" />
+<Section title="Unique value and problem framing" evidence={["EV-004"]}>
+
+Canvas is powerful but navigation-heavy. Our plan argued that instructors lose hours to repetitive LMS tasks that could be expressed as intent: “remind students who have not submitted,” “extend the deadline for Lab 3,” “show me missing work for this section.”
+
+Two propositions differentiated Conductor from a generic chatbot. First, a retrieval pipeline grounded in live Canvas API data so answers reflect the instructor’s actual courses rather than model hallucination. Second, a safety-first interaction model where every write path produces an explicit preview the user must confirm before anything reaches Canvas.
+
+</Section>
+
+<Section title="Personas and primary users" evidence={["EV-005"]}>
+
+We designed for three user groups. Instructors need course-wide visibility, assignment control, and communication tools without re-learning Canvas navigation for every task. Teaching assistants need scoped access to submission review and student messaging. Administrators (where applicable) need health and user-management surfaces.
+
+Proto-personas in the planning document anchored scenario writing. Each scenario — reminding selected students with dry-run, updating a high-risk assignment, running a TA submission pass — became a traceable requirement we could map to UI mockups and API endpoints.
+
+</Section>
+
+<Section title="Functional scope of the assistant" evidence={["EV-007", "EV-006"]}>
+
+Functional requirements cluster around authentication, Canvas token connection, course dashboards, natural-language assistant behavior, preview/confirmation, structured errors, and action history. The assistant must accept plain-language instructions, request clarifying details when ambiguous, and refuse operations with no API backing.
+
+Non-functional requirements set the quality bar: onboarding a new developer in roughly thirty minutes, sub-three-second assistant responses, reliability under courses up to three hundred students, and security/privacy constraints around OAuth tokens and student data. These numbers appear repeatedly in design reviews when we debated caching, pagination, and what data could be sent to an external LLM.
+
+</Section>
+
+<Section title="Boundaries we enforced" evidence={["EV-004", "EV-008"]}>
+
+Time and API surface area were the main constraints. We explicitly scoped out general-purpose conversation, unsupported Canvas operations, and features that would require vendor partnership beyond REST endpoints. Rate limits on Canvas were treated as a shared resource — one abusive workflow could lock out other users.
+
+Documenting boundaries upfront prevented scope creep during mid-term sprints. When a feature request could not cite a requirement ID or scenario, it went to the change-request process described in the charter rather than landing silently in a pull request.
+
+</Section>
+
+<Section title="How requirements reached design" evidence={["EV-014", "EV-041"]}>
+
+The consolidated design document and frontend requirements spreadsheet linked every screen to requirement IDs. Figma mockups reference the same IDs, which is why Libretto can trace a UI element like the dry-run modal back to a specific safety guardrail in the plan.
+
+Requirements were not frozen on week three — they were versioned on the Documents branch and revised when architecture discoveries forced trade-offs. The evidence links point at those revisions so evaluators can compare intent (plan) with implementation (development branch code).
+
+</Section>

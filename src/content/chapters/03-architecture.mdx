@@ -1,11 +1,50 @@
 ---
 title: Architecture
-description: Microservices, Kong gateway, and infrastructure topology.
+description: Microservices, gateway routing, and the infrastructure shape we implemented.
 ---
 
-import Evidence from '../../components/evidence/Evidence.astro';
+import Section from '../../components/layout/Section.astro';
 
-Conductor is deployed as Docker Compose services: frontend, Kong API gateway, auth, canvas, agentic, and notification microservices, plus Postgres, Redis, and ClickHouse.
+<p class="chapter-intro">
+  Conductor’s architecture evolved from early component diagrams into a Docker Compose microservice stack. This chapter explains the topology we chose, why the frontend never talks to backend services directly, and how each service owns a slice of business logic.
+</p>
 
-<Evidence id="EV-010" />
-<Evidence id="EV-011" />
+<Section title="Design rationale" evidence={["EV-012", "EV-013"]}>
+
+We adopted a microservices layout because auth, Canvas integration, agent orchestration, and real-time notification have different scaling profiles, failure modes, and release cadences. The system architecture document describes a browser client that speaks only to an API gateway; the gateway routes to domain services; Canvas traffic is isolated behind a dedicated connector service.
+
+The component diagram from week four maps product features — login, dashboard, AI agent, preview, action history — to data stores and external systems. That diagram predates some renames (for example, consolidated agent and canvas services) but still explains why Redis appears beside login flows and why Postgres holds chat history for session replay.
+
+</Section>
+
+<Section title="Runtime topology" evidence={["EV-010", "EV-011"]}>
+
+The development branch `docker-compose.yaml` is the ground truth for what runs locally. Kong listens on port 8000 in declarative DB-less mode. The Vite frontend serves on 5173. Auth, agentic, notification, and canvas services expose 8002–8005 respectively, with Postgres and Redis backing persistence and cache.
+
+Kong’s route table mirrors service boundaries: `/api/auth` to authentication, `/api/agent` and `/api/notify` and `/api/connector` each protected by JWT plugins verifying issuer claims. This keeps token verification centralized — downstream services assume Kong already enforced authentication for protected routes.
+
+</Section>
+
+<Section title="Service responsibilities" evidence={["EV-012", "EV-050"]}>
+
+**Auth** owns identity, JWT issuance, OAuth token storage, and Redis-backed logout blacklists. **Canvas (connector)** is the only service permitted to call Canvas REST APIs; it normalizes responses and enforces rate-limit awareness. **Agentic** runs the ReAct loop — LLM calls, tool selection, human-in-the-loop pauses, checkpointing conversation state to Postgres while keeping hot session data in Redis. **Notification** streams agent step events to the browser over WebSocket without owning durable business data.
+
+Splitting Canvas calls out of the agent was a deliberate safety and operability choice. When Canvas changes an endpoint or throttles requests, we touch one service and its tests rather than redeploying the entire agent stack.
+
+</Section>
+
+<Section title="Event-driven coordination" evidence={["EV-012"]}>
+
+The architecture document specifies Redis pub/sub channels such as `session:{id}:steps`, `session:{id}:hitl`, and `session:{id}:approved`. The agent publishes progress; notification forwards to clients; human-in-the-loop approvals loop back to unblock tool execution.
+
+Event naming kept services loosely coupled — the agent does not import notification code, and new subscribers (for example, audit logging) can be added without modifying publishers. We accepted Redis as a best-effort bus with Postgres checkpoints for anything that must survive restarts.
+
+</Section>
+
+<Section title="Data ownership per schema" evidence={["EV-030", "EV-012"]}>
+
+Postgres schemas are partitioned by service: `auth` for users and tokens, `agent` for sessions and steps, `canvas` for action logs and course cache, plus dedicated areas for HITL and history as described in the architecture doc. No service queries another schema directly; cross-domain reads go through HTTP or gRPC APIs.
+
+That rule occasionally felt heavy for a capstone timeline, but it prevented the “shared database antipattern” that makes microservices impossible to split later. Libretto cites the schema table in the architecture document alongside the ER diagram chapter for field-level detail.
+
+</Section>

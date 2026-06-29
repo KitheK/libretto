@@ -1,11 +1,50 @@
 ---
 title: History
-description: Weekly logs, milestones, and project timeline.
+description: Milestones, weekly evolution, and how the project unfolded over the term.
 ---
 
-import Evidence from '../../components/evidence/Evidence.astro';
+import Section from '../../components/layout/Section.astro';
 
-Chapter stub — build a scroll-driven timeline from weekly logs and linked issues/PRs.
+<p class="chapter-intro">
+  Libretto’s final chapter situates Conductor in time — the milestones from the charter, the documentation artifacts produced each fortnight, and the infrastructure work (like team Canvas) that unlocked integration testing mid-term.
+</p>
 
-<Evidence id="EV-001" />
-<Evidence id="EV-229" />
+<Section title="Planned milestone arc" evidence={["EV-080", "EV-003"]}>
+
+The charter defines six deliverable phases across the summer term: requirements by week three, architecture and UI/UX by week four, wireframes and integrations by week six, core development through week fourteen, QA through week sixteen, deployment by week eighteen.
+
+Those dates were planning anchors, not immutable law — the team renegotiated internal deadlines when Canvas access or LLM integration took longer than expected. Weekly logs on the Documents branch capture actual versus planned progress for stakeholders reviewing the project timeline.
+
+</Section>
+
+<Section title="Early term — intent and design" evidence={["EV-004", "EV-014"]}>
+
+Weeks one through four concentrated on charter ratification, project planning with personas and SMART goals, system architecture diagrams, component diagrams, ER modeling, and Figma mockups. The consolidated design document merged scattered artifacts into a single review packet for instructor feedback.
+
+This period established vocabulary still used in code review — dry-run, connector, action history, HITL — reducing ambiguity when backend and frontend teams split work.
+
+</Section>
+
+<Section title="Mid term — integration surfaces" evidence={["EV-229", "EV-061"]}>
+
+By week six the team needed real Canvas data. Issue #229 tracks team Canvas development environment work — Docker deployment, seeded courses, branding — documented further in LOCAL_CANVAS.md and related infrastructure repos. Without this bridge, agent tools could only be tested against mocks.
+
+Parallel frontend work landed dashboard and token connection routes; auth and canvas services stabilized OAuth flows. Agentic service work shifted from scaffolding to orchestrator and catalog implementation tied to level-one data-flow diagrams.
+
+</Section>
+
+<Section title="Late term — hardening and CI" evidence={["EV-072", "EV-020"]}>
+
+Later sprints emphasized test coverage on tool policy, notification streaming, and gateway JWT configuration. Pull request discipline tightened as diffs touched safety-critical paths — a one-line change in approval handling could bypass dry-run if reviewers rushed.
+
+Per-service CI workflows matured alongside feature completeness; notification and canvas pipelines joined auth, agentic, and frontend gates already running on each PR.
+
+</Section>
+
+<Section title="Reading the trail in GitHub" evidence={["EV-001", "EV-010"]}>
+
+Libretto is commentary; GitHub is the archive. Documents branch commits show design evolution; development branch commits and issues show implementation; pull request threads show disagreements resolved. This history chapter points readers to those layers rather than duplicating weekly log prose.
+
+Future contributors should start here for narrative, then follow evidence dropdowns into charter milestones, issue #229, and the docker-compose file that represents the current runnable system.
+
+</Section>

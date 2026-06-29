@@ -1,11 +1,48 @@
 ---
 title: Agent
-description: Agentic service, tools, and gRPC contracts.
+description: ReAct orchestration, tools, and LLM integration design.
 ---
 
-import Evidence from '../../components/evidence/Evidence.astro';
+import Section from '../../components/layout/Section.astro';
 
-Chapter stub — document the agentic-service orchestrator, tool registry, and related issues.
+<p class="chapter-intro">
+  The agentic service is Conductor’s reasoning layer. This chapter documents how we designed the ReAct loop, registered Canvas tools, and kept student data handling explicit in a system where the LLM never calls Canvas directly.
+</p>
 
-<Evidence id="EV-011" />
-<Evidence id="EV-030" />
+<Section title="Orchestration model" evidence={["EV-052", "EV-012"]}>
+
+System architecture assigns the agent service responsibility for the ReAct loop: call LLM, interpret tool requests, execute via canvas connector, publish step events, pause for human approval when needed. The orchestrator module implements that cycle with explicit state objects for session, pending tools, and approval tokens.
+
+We chose ReAct over a single-shot prompt because Canvas tasks are multi-step — fetch roster, filter missing submissions, draft message, preview send. Each step needs observable progress for the notification service to stream to the UI.
+
+</Section>
+
+<Section title="Tool catalog and policy" evidence={["EV-051", "EV-007"]}>
+
+Tools are registered in a catalog with metadata describing Canvas operations, risk level, and required confirmations. Policy modules gate which tools run in dry-run-only mode versus execution mode. This implements the plan’s boundary: the assistant refuses operations with no API backing and escalates high-risk actions to HITL even when the LLM proposes them confidently.
+
+Catalog entries map to canvas-service gRPC or REST facades so the agent never embeds raw HTTP paths. Adding a tool means updating catalog, connector facade, tests, and frontend preview rendering — a checklist we reused for each sprint.
+
+</Section>
+
+<Section title="LLM and context management" evidence={["EV-004", "EV-023"]}>
+
+The project plan’s RAG/value proposition requires grounding responses in retrieved Canvas data. In practice, the agent gathers context through tool calls (course roster, assignment metadata, submission status) before the LLM drafts user-visible text or proposed mutations. Conversation history lives in Redis for latency; completed steps checkpoint to Postgres for reload.
+
+We documented in component diagrams that external LLM APIs must not receive unnecessary student PII — only the fields required for the requested operation pass through prompts, aligned with privacy requirements in the plan.
+
+</Section>
+
+<Section title="Human-in-the-loop integration" evidence={["EV-006", "EV-023"]}>
+
+When a tool marks itself as mutating, the orchestrator emits a HITL event on Redis, serializes a dry-run payload, and waits for approval before calling execute endpoints. Rejection returns structured errors to the chat without partial Canvas writes.
+
+This design trades latency for safety — acceptable given the plan’s 100% interception criterion. Frontend tests and agent integration tests both cover approve, reject, and timeout paths.
+
+</Section>
+
+<Section title="Operational concerns" evidence={["EV-050", "EV-072"]}>
+
+The agentic service README documents local uvicorn setup, ruff/pytest expectations, and Docker build. CI workflow runs unit tests on pull requests — critical because tool registry regressions can silently remove safety gates. Libretto treats agent code, catalog, and CI as joint evidence that the design was implemented, not merely diagrammed.
+
+</Section>

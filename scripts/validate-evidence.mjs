@@ -38,13 +38,17 @@ function collectMdxEvidenceIds(dir) {
   const ids = new Set();
   if (!fs.existsSync(dir)) return ids;
 
-  const idPattern = /<Evidence[^>]*\sid=["'](EV-\d+)["']/g;
+  const sectionPattern = /evidence=\{(\[[^\]]*\])\}/g;
+  const idPattern = /EV-\d+/g;
 
   for (const file of fs.readdirSync(dir)) {
     if (!file.endsWith('.mdx')) continue;
     const content = fs.readFileSync(path.join(dir, file), 'utf8');
-    for (const match of content.matchAll(idPattern)) {
-      ids.add(match[1]);
+
+    for (const match of content.matchAll(sectionPattern)) {
+      for (const id of match[1].matchAll(idPattern)) {
+        ids.add(id[0]);
+      }
     }
   }
 

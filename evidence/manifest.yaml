@@ -1,27 +1,137 @@
+# Libretto evidence manifest — maps stable IDs to capstone-team-1 sources
+
 EV-001:
-  label: Mission statement
+  label: Mission statement (charter §2.1)
   url: https://github.com/UBCO-COSC499-S2026/capstone-team-1/blob/Documents/docs/charter/charter.md#21-mission-statement
 
 EV-002:
-  label: Vision statement
+  label: Vision statement (charter §2.2)
   url: https://github.com/UBCO-COSC499-S2026/capstone-team-1/blob/Documents/docs/charter/charter.md#22-vision-statement
 
+EV-003:
+  label: Team members and roles (charter §4)
+  url: https://github.com/UBCO-COSC499-S2026/capstone-team-1/blob/Documents/docs/charter/charter.md#4-roles-and-responsibilities
+
+EV-004:
+  label: Project purpose and UVP
+  url: https://github.com/UBCO-COSC499-S2026/capstone-team-1/blob/Documents/docs/plan/project_planning.md#project-purpose-or-justification-uvp
+
+EV-005:
+  label: Proto-personas and user groups
+  url: https://github.com/UBCO-COSC499-S2026/capstone-team-1/blob/Documents/docs/plan/project_planning.md#proto-personas
+
+EV-006:
+  label: Safety guardrails and dry-run requirements
+  url: https://github.com/UBCO-COSC499-S2026/capstone-team-1/blob/Documents/docs/plan/project_planning.md#measurable-project-objectives-and-related-success-criteria
+
+EV-007:
+  label: Functional requirements — assistant
+  url: https://github.com/UBCO-COSC499-S2026/capstone-team-1/blob/Documents/docs/plan/project_planning.md#assistant-natural-language
+
+EV-008:
+  label: Non-functional requirements — onboarding time
+  url: https://github.com/UBCO-COSC499-S2026/capstone-team-1/blob/Documents/docs/plan/project_planning.md#non-functional-requirements
+
 EV-010:
-  label: docker-compose services
+  label: docker-compose service topology
   url: https://github.com/UBCO-COSC499-S2026/capstone-team-1/blob/development/app/docker-compose.yaml
 
 EV-011:
-  label: Kong gateway routes
+  label: Kong gateway routes and JWT plugins
   url: https://github.com/UBCO-COSC499-S2026/capstone-team-1/blob/development/app/infrastructure/api_gateway/config/kong.yaml
 
+EV-012:
+  label: System architecture component descriptions
+  url: https://github.com/UBCO-COSC499-S2026/capstone-team-1/blob/Documents/docs/design/System%20Architecture/SystemArchitecture.md
+
+EV-013:
+  label: Component diagram and feature map
+  url: https://github.com/UBCO-COSC499-S2026/capstone-team-1/blob/Documents/docs/design/component_diagram/component_diagram.md
+
+EV-014:
+  label: Design document (consolidated)
+  url: https://github.com/UBCO-COSC499-S2026/capstone-team-1/blob/Documents/docs/design/design_document.md
+
 EV-020:
-  label: PR standards (charter §10.1)
+  label: PR standards and code review (charter §10.1)
   url: https://github.com/UBCO-COSC499-S2026/capstone-team-1/blob/Documents/docs/charter/charter.md#101-pull-request-standards--code-review
 
+EV-021:
+  label: Frontend route map (App.tsx)
+  url: https://github.com/UBCO-COSC499-S2026/capstone-team-1/blob/development/app/frontend/src/App.tsx
+
+EV-022:
+  label: Level 0 data flow diagram
+  url: https://github.com/UBCO-COSC499-S2026/capstone-team-1/blob/Documents/docs/design/Data%20Flow%20Diagrams/level0.md
+
+EV-023:
+  label: Level 1 agentic request flow
+  url: https://github.com/UBCO-COSC499-S2026/capstone-team-1/blob/Documents/docs/design/Data%20Flow%20Diagrams/level1.md
+
+EV-024:
+  label: Level 1 authentication flow
+  url: https://github.com/UBCO-COSC499-S2026/capstone-team-1/blob/Documents/docs/design/Data%20Flow%20Diagrams/level1.md#system-overview-authentication-flow
+
 EV-030:
+  label: Database schema documentation
+  url: https://github.com/UBCO-COSC499-S2026/capstone-team-1/blob/Documents/docs/design/ER%20Diagram/DATABASE.md
+
+EV-031:
+  label: ER diagram image
+  url: https://github.com/UBCO-COSC499-S2026/capstone-team-1/blob/Documents/docs/design/ER%20Diagram/ER%20Diagram.png
+
+EV-040:
+  label: Figma mockups and navigation flow
+  url: https://github.com/UBCO-COSC499-S2026/capstone-team-1/blob/Documents/docs/design/UI/Figma.md
+
+EV-041:
+  label: Frontend requirements document
+  url: https://github.com/UBCO-COSC499-S2026/capstone-team-1/blob/Documents/docs/design/UI/Frontend_Requiremnts.md
+
+EV-050:
+  label: Agentic service README
+  url: https://github.com/UBCO-COSC499-S2026/capstone-team-1/blob/development/app/services/agentic-service/README.md
+
+EV-051:
+  label: Agent tool catalog
+  url: https://github.com/UBCO-COSC499-S2026/capstone-team-1/blob/development/app/services/agentic-service/app/tools/catalog.py
+
+EV-052:
+  label: Agent orchestrator (ReAct loop)
+  url: https://github.com/UBCO-COSC499-S2026/capstone-team-1/blob/development/app/services/agentic-service/app/agent/orchestrator.py
+
+EV-060:
+  label: Local development setup guide
+  url: https://github.com/UBCO-COSC499-S2026/capstone-team-1/blob/development/docs/SETUP.md
+
+EV-061:
+  label: Local Canvas deployment guide
+  url: https://github.com/UBCO-COSC499-S2026/capstone-team-1/blob/development/docs/canvas/LOCAL_CANVAS.md
+
+EV-062:
+  label: Canvas REST API reference
+  url: https://github.com/UBCO-COSC499-S2026/capstone-team-1/blob/Documents/docs/api/canvas_api/canvas_api.md
+
+EV-070:
   label: Frontend CI workflow
   url: https://github.com/UBCO-COSC499-S2026/capstone-team-1/blob/development/.github/workflows/frontend-ci.yml
 
+EV-071:
+  label: Auth service CI workflow
+  url: https://github.com/UBCO-COSC499-S2026/capstone-team-1/blob/development/.github/workflows/auth-service-ci.yml
+
+EV-072:
+  label: Agentic service CI workflow
+  url: https://github.com/UBCO-COSC499-S2026/capstone-team-1/blob/development/.github/workflows/agentic-service-ci.yml
+
+EV-073:
+  label: Canvas service CI workflow
+  url: https://github.com/UBCO-COSC499-S2026/capstone-team-1/blob/development/.github/workflows/canvas-service-ci.yml
+
+EV-080:
+  label: Charter deliverables and milestones
+  url: https://github.com/UBCO-COSC499-S2026/capstone-team-1/blob/Documents/docs/charter/charter.md#33-deliverables-and-milestones
+
 EV-229:
-  label: Team Canvas development issue
+  label: Team Canvas development environment issue
   url: https://github.com/UBCO-COSC499-S2026/capstone-team-1/issues/229

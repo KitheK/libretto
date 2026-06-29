@@ -1,11 +1,48 @@
 ---
 title: UI
-description: Figma designs and frontend requirements.
+description: Figma prototypes, navigation rules, and frontend implementation choices.
 ---
 
-import Evidence from '../../components/evidence/Evidence.astro';
+import Section from '../../components/layout/Section.astro';
 
-Chapter stub — cover Figma exports and Frontend_Requirements.md.
+<p class="chapter-intro">
+  Conductor’s interface was designed before most backend services existed. This chapter explains the Figma-first workflow, the human-in-the-loop navigation rule, and how React routes implement the frontend requirements document.
+</p>
 
-<Evidence id="EV-030" />
-<Evidence id="EV-001" />
+<Section title="Design process" evidence={["EV-040", "EV-041"]}>
+
+UI/UX leads produced mockups in Figma linked from the design folder on the Documents branch. The Figma.md walkthrough maps each PNG — login, dashboard, assistant chat, dry-run modal, action history, settings, Canvas token connection — to routes, roles, and requirement IDs in Frontend_Requirements.md.
+
+Mockups intentionally prioritized flow over visual polish. The team needed agreement on where confirmation happens, how errors surface, and which screens are reachable without a Canvas token. Those decisions stabilized API contracts for backend developers parallelizing service work.
+
+</Section>
+
+<Section title="Navigation and safety-first routing" evidence={["EV-040", "EV-006"]}>
+
+The Figma navigation diagram encodes a blocking dry-run modal on every write path. Read-only assistant answers stay in-chat; proposed mutations open preview; cancel returns to chat; confirm triggers execution and history update. Alternate flows cover session expiry, unknown routes, and unauthorized course access.
+
+This mirrors the SMART safety goal in the project plan — no Canvas mutation without explicit secondary confirmation. Implementing it required coordinated frontend state (modal stack), agent API (preview payload shape), and action history (live append on success).
+
+</Section>
+
+<Section title="Implemented routes" evidence={["EV-021"]}>
+
+The development branch React app routes `/` and `/login` to authentication, `/home` to the dashboard, `/settings` for profile and LMS connection, `/canvas-token-connection` for developer key onboarding, and `/action-history` for audit review. Naming differs slightly from early Figma paths (`/dashboard` vs `/home`) but responsibilities align.
+
+Components under `frontend/src/components` group UI by feature — dashboard panels, settings cards, token instructions — matching the modular breakdown in frontend requirements. Libretto cites App.tsx as the route index and the requirements doc for per-screen acceptance criteria.
+
+</Section>
+
+<Section title="Stack and accessibility" evidence={["EV-041", "EV-040"]}>
+
+The UI stack is Vite, React, TypeScript, and CSS modules per feature area. Frontend requirements specify keyboard navigability, focus management on modals, and responsive layouts for instructor laptops (primary persona hardware).
+
+Accessibility was treated as a release criterion, not a stretch goal — dry-run modals must trap focus, error toasts must be announced, and color contrast must hold on dashboard analytics cards. Known gaps documented in Figma.md (admin panel depth, edge-case empty states) became GitHub issues rather than silent deferrals.
+
+</Section>
+
+<Section title="From mockup to merge" evidence={["EV-070", "EV-020"]}>
+
+Frontend pull requests linked to issues with acceptance criteria screenshots where possible. CI runs lint and tests on each PR to development. When mockups changed, designers updated Figma and Frontend_Requirements together so evidence stayed synchronized — a process this Libretto chapter summarizes for evaluators who will not diff Figma history manually.
+
+</Section>

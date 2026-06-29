@@ -1,0 +1,22 @@
+---
+import EvidenceDropdown from '../evidence/EvidenceDropdown.astro';
+
+interface Props {
+  title: string;
+  level?: 2 | 3;
+  evidence?: string[];
+}
+
+const { title, level = 2, evidence = [] } = Astro.props;
+const Tag = level === 3 ? 'h3' : 'h2';
+---
+
+<section class="doc-section">
+  <div class="doc-section__header">
+    <Tag class="doc-section__title">{title}</Tag>
+    {evidence.length > 0 && <EvidenceDropdown ids={evidence} />}
+  </div>
+  <div class="doc-section__body">
+    <slot />
+  </div>
+</section>

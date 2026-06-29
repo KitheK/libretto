@@ -1,11 +1,50 @@
 ---
 title: Database
-description: Schema, ER diagrams, and persistence layer.
+description: Schema design, entity relationships, and persistence decisions.
 ---
 
-import Evidence from '../../components/evidence/Evidence.astro';
+import Section from '../../components/layout/Section.astro';
 
-Chapter stub — link DATABASE.md and ER diagrams from the design docs.
+<p class="chapter-intro">
+  Conductor splits durable state across Postgres schemas while Redis handles ephemeral session and pub/sub traffic. This chapter explains the entities we modeled during design, how they support auth and agent memory, and why we separated course cache from canonical Canvas data.
+</p>
 
-<Evidence id="EV-010" />
-<Evidence id="EV-020" />
+<Section title="Modeling approach" evidence={["EV-030", "EV-031"]}>
+
+The DATABASE.md artifact on the Documents branch enumerates tables, columns, and relationships with an accompanying ER diagram PNG. We started from user-centric entities — accounts, OAuth tokens, course memberships — then added agent-specific tables for memory, sessions, tool approvals, and action logs.
+
+Design reviews emphasized hashed passwords, explicit token expiration columns, and blacklist rows for revoked JWTs. These were not afterthoughts; they map directly to charter security expectations and the authentication data-flow diagram.
+
+</Section>
+
+<Section title="Identity and session tables" evidence={["EV-030"]}>
+
+The `Users` table stores local credentials, Canvas refresh tokens, Canvas user IDs, and locale preferences. `TokenBlacklist` captures revoked JWTs with denial reason and expiry so logout is immediate even if a token has not naturally expired.
+
+This split lets auth service queries stay narrow — login checks `Users`, middleware checks blacklist in Redis with Postgres as source of truth for audit. We avoided storing Canvas API keys in the frontend by keeping refresh material in auth-owned schema only.
+
+</Section>
+
+<Section title="Agent memory and preferences" evidence={["EV-030", "EV-051"]}>
+
+`AgentMemory` holds per-user key/value preferences that influence tool selection or communication tone. `PreAuthRequests` models optional automation where instructors pre-approve certain action types for a course within a date window — a advanced requirement that documents how we planned for reduced friction without bypassing dry-run entirely.
+
+Tool catalog code references these tables indirectly through repositories; Libretto links both the schema doc and catalog implementation so readers can trace from ER diagram to Python models.
+
+</Section>
+
+<Section title="Courses and action history" evidence={["EV-030", "EV-013"]}>
+
+`Courses` maps users to course metadata cached from Canvas to avoid repeated full syncs on every assistant turn. Action history tables (documented under history-oriented schemas in architecture) store preview payloads, approval decisions, timestamps, and operation types for the `/action-history` UI.
+
+The component diagram describes Action History as the audit trail connecting Preview and Decision Handling components. Database design made that log queryable by session and filterable by course — a requirement for instructors who batch similar operations across weeks.
+
+</Section>
+
+<Section title="Migration and service isolation" evidence={["EV-010", "EV-012"]}>
+
+Each service ships Alembic migrations scoped to its schema. Docker Compose runs a migrate job before auth and agent containers start, ensuring fresh clones reach healthy state without manual SQL. Cross-schema foreign keys are avoided; when agent needs user identity, it calls auth internal APIs or gRPC rather than joining tables.
+
+We documented this isolation in SystemArchitecture.md to prevent future contributors from “just querying auth.users” from canvas code — a shortcut that would break service boundaries the first time auth schema changes.
+
+</Section>

@@ -1,11 +1,50 @@
 ---
 title: Canvas bridge
-description: Canvas API integration and local development environment.
+description: Canvas API integration, local LMS setup, and connector service design.
 ---
 
-import Evidence from '../../components/evidence/Evidence.astro';
+import Section from '../../components/layout/Section.astro';
 
-Chapter stub — cover canvas_api docs, local Canvas setup, and team infrastructure issues.
+<p class="chapter-intro">
+  Conductor does not bundle Canvas — it integrates with an instructor’s instance through OAuth and REST APIs. This chapter explains how we isolated Canvas access in the connector service, documented API usage, and stood up local Canvas environments for integration testing.
+</p>
 
-<Evidence id="EV-229" />
-<Evidence id="EV-011" />
+<Section title="Integration boundary" evidence={["EV-012", "EV-062"]}>
+
+Architecture rules designate the canvas (connector) service as the only component allowed to call Canvas REST endpoints. It injects per-user OAuth tokens, normalizes responses into internal DTOs, and enforces rate-limit awareness so one workflow cannot exhaust shared API quotas.
+
+The canvas API reference in the Documents branch catalogs endpoints we rely on — courses, assignments, submissions, users — and notes pagination and error semantics. Agent tools ultimately map to facade methods in this service rather than ad-hoc HTTP in the orchestrator.
+
+</Section>
+
+<Section title="Credential and token flows" evidence={["EV-061", "EV-021"]}>
+
+Instructors connect Canvas through the token connection UI (`/canvas-token-connection`), storing developer-key material via auth-owned persistence. Login establishes our JWT; Canvas connection establishes LMS access — two distinct steps reflected in Figma navigation (token gate before dashboard features).
+
+Local development docs describe environment variables for Canvas base URL, client ID, and secrets. The connector validates credentials before marking a user ready for agent tool calls, preventing opaque LLM failures when tokens are missing or expired.
+
+</Section>
+
+<Section title="Local Canvas for testing" evidence={["EV-061", "EV-229"]}>
+
+Because course data is sensitive and production Canvas access is restricted, the team invested in local Canvas LMS deployment documentation and a dedicated development environment tracked in GitHub issue #229. LOCAL_CANVAS.md explains Docker-based Canvas setup; the issue links infrastructure work for team-shared test instances.
+
+This bridge layer was essential for demos and CI-adjacent manual tests — agents could run dry-run flows against seeded courses without touching institutional production tenants.
+
+</Section>
+
+<Section title="gRPC and service facades" evidence={["EV-010", "EV-073"]}>
+
+Docker Compose wires the agent to connector via gRPC (`CANVAS_GRPC_TARGET`), keeping high-frequency tool calls off HTTP JSON where protobuf contracts help versioning. Facades inside canvas-service group endpoints by domain — courses, assignments, submissions, users — matching tool catalog modules on the agent side.
+
+Canvas-service CI runs unit tests against facades and transport layers so API shape changes fail fast before integration tests against a live Canvas.
+
+</Section>
+
+<Section title="Failure modes we designed for" evidence={["EV-004", "EV-062"]}>
+
+Project planning listed Canvas API limits and missing endpoints as top risks. Connector code paths return structured errors for throttling, unauthorized scopes, and invalid course IDs; the agent surfaces those as user-readable chat errors rather than stack traces.
+
+When Canvas returns partial data (paginated rosters, delayed submission sync), facades handle pagination internally so the LLM sees complete context up to configured safety caps — balancing the scalability requirement for large sections against API courtesy.
+
+</Section>

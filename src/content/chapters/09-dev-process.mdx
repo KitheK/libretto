@@ -1,11 +1,50 @@
 ---
 title: Dev process
-description: PR standards, CI, and team workflow.
+description: Pull requests, code review, CI, and how the team shipped incrementally.
 ---
 
-import Evidence from '../../components/evidence/Evidence.astro';
+import Section from '../../components/layout/Section.astro';
 
-The team follows charter-defined pull request standards: two approvals for merges to `development`, and smaller backend PRs for easier review.
+<p class="chapter-intro">
+  Conductor’s codebase grew across six developers and four microservices. This chapter documents the engineering process we committed to in the charter — branching, review standards, CI gates — and how that process kept parallel service work mergeable.
+</p>
 
-<Evidence id="EV-020" />
-<Evidence id="EV-030" />
+<Section title="Branching and pull request scope" evidence={["EV-020"]}>
+
+We worked on feature branches merged to `development` via pull request; `main` received releases at milestone boundaries. Charter section 10.1 requires each PR to address a single feature, link explicitly to its GitHub issue, and include meaningful commit messages.
+
+Backend PRs targeted an upper bound of roughly 200 lines changed; larger diffs required Discord notice and justification. That rule existed to protect reviewers during rapid sprints — oversized PRs hid security regressions in agent tool policy or auth token handling.
+
+</Section>
+
+<Section title="Code review expectations" evidence={["EV-020"]}>
+
+Two approvals were required before merging to `development`. Reviewers shared responsibility with authors for compile success, passing tests, style compliance, and zero new bugs. Rubber-stamp “LGTM” reviews were explicitly discouraged; review SLA was 24–48 hours to avoid blocking teammates.
+
+Issue templates and project board discipline (move to In Progress before coding, acceptance criteria on every issue) tied process artifacts to the same IDs referenced in weekly logs and Libretto evidence.
+
+</Section>
+
+<Section title="Continuous integration" evidence={["EV-070", "EV-071", "EV-072", "EV-073"]}>
+
+Each service owns a GitHub Actions workflow on the development branch: frontend, auth-service, agentic-service, canvas-service, and notification-service. Pull requests trigger lint and test stages appropriate to the stack — npm/vitest for React, pytest/ruff for Python services, Go tests for notification.
+
+CI was the enforcement layer for charter quality checks. A green workflow was necessary but not sufficient; human review still validated product behavior especially for dry-run and Canvas side effects.
+
+</Section>
+
+<Section title="Documentation and AI usage" evidence={["EV-020", "EV-003"]}>
+
+Charter section 5.5 permits AI assistance with author ownership — contributors must understand generated code and not offload comprehension to reviewers. Documentation lead maintained Documents-branch artifacts (charter, plan, design) while application code lived on development.
+
+When architecture changed, we updated design docs or filed change requests per charter section 7 — feature changes required a form, Discord review, group vote, and PR to `Documents/change-requests`.
+
+</Section>
+
+<Section title="Local developer experience" evidence={["EV-060", "EV-010"]}>
+
+SETUP.md targets thirty-minute onboarding: clone, configure Postgres env, `docker compose up`, verify health endpoints on Kong and each service. That NFR from the project plan influenced Compose healthchecks, migrate jobs, and README structure in each service folder.
+
+Dev process and developer experience were linked — if onboarding slipped beyond one sit-down session, we treated it as a bug in scripts or docs, not user error.
+
+</Section>

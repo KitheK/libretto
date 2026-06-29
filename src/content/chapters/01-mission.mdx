@@ -1,17 +1,42 @@
 ---
 title: Mission
-description: What Conductor is and why the team built it.
+description: Why Conductor exists, who built it, and what the team committed to deliver.
 ---
 
-import Evidence from '../../components/evidence/Evidence.astro';
+import Section from '../../components/layout/Section.astro';
 
-**Conductor** is an agentic AI assistant that lets instructors manage Canvas courses through natural language. Libretto documents how that product was conceived, designed, and built.
+<p class="chapter-intro">
+  This chapter records the product intent behind Conductor — the agentic Canvas assistant our capstone team designed and implemented over the summer term. It explains the problem we chose, the promise we made to stakeholders, and how that intent shaped every later architectural decision.
+</p>
 
-The mission and vision live in the project charter on the `Documents` branch of the capstone repository.
+<Section title="Product intent" evidence={["EV-001", "EV-002"]}>
 
-<Evidence id="EV-001" />
+Instructors and teaching assistants spend a disproportionate amount of time on repetitive Canvas work: checking submission status, updating assignment parameters, and drafting student communications. Conductor (internally documented as an agentic Canvas assistant) exists to collapse those multi-click workflows into natural-language requests while keeping humans in control of every mutation.
 
-The system runs as a microservice stack behind Kong, with a React frontend and dedicated auth, canvas, agentic, and notification services.
+Our charter defines the mission plainly: build a platform that lets professors organize course material, content, and exams through natural language. The vision extends that goal — natural language as a primary interface to software — which is why the assistant, dry-run preview, and action history became first-class features rather than optional polish.
 
-<Evidence id="EV-010" />
-<Evidence id="EV-011" />
+</Section>
+
+<Section title="What we committed to ship" evidence={["EV-080", "EV-006"]}>
+
+The team did not treat Conductor as a demo chatbot. The project plan required a Dockerized web application that passes stakeholder acceptance tests, intercepts 100% of destructive Canvas actions behind a dry-run preview, and responds to parsed commands within three seconds under normal network conditions.
+
+Those measurable objectives drove scope boundaries early. We narrowed the assistant to Canvas-related tasks only, rejected open-ended conversation, and documented API limits as a hard external constraint. Anything that could not be backed by a Canvas REST endpoint or verified course data was out of MVP scope.
+
+</Section>
+
+<Section title="Team structure and ownership" evidence={["EV-003"]}>
+
+Six team members shared responsibility across frontend, backend, DevOps, documentation, and UI/UX. Initial roles were deliberately flexible — DevOps and frontend for James, full-stack for Carson, backend QA for Hakim, project lead and UI for Kithe, frontend lead and design for Armaan, documentation and backend for Al-Ameen — with the expectation that ownership would sharpen as the codebase matured.
+
+That flexibility reduced early bureaucracy but required strong version-control norms. Feature ownership eventually clustered around services (auth, canvas connector, agentic orchestrator, notification) while design artifacts on the Documents branch remained the shared reference for product behavior.
+
+</Section>
+
+<Section title="From charter to codebase" evidence={["EV-010", "EV-012"]}>
+
+Mission statements are easy to write; the engineering challenge was translating them into a microservice layout that could be developed in parallel. We split Conductor into a React frontend, Kong gateway, auth/canvas/agentic/notification services, Postgres, and Redis — each service owning a domain described in the system architecture document.
+
+Libretto treats this chapter as the narrative anchor. Later chapters explain how requirements became diagrams, how diagrams became Compose files, and how Compose files became the running system you can clone from the capstone repository today.
+
+</Section>
