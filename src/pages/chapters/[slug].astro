@@ -1,7 +1,21 @@
 ---
 import SiteShell from '../../components/layout/SiteShell.astro';
+import DividerRule from '../../components/layout/DividerRule.astro';
 
 const chapterModules = import.meta.glob('../../content/chapters/*.mdx');
+
+const navMap: Record<string, 'system' | 'flows' | 'agents' | 'guides'> = {
+  '01-mission': 'guides',
+  '02-requirements': 'guides',
+  '03-architecture': 'system',
+  '04-data-flows': 'flows',
+  '05-database': 'system',
+  '06-ui': 'guides',
+  '07-agent': 'agents',
+  '08-canvas-bridge': 'agents',
+  '09-dev-process': 'guides',
+  '10-history': 'guides',
+};
 
 export function getStaticPaths() {
   return [
@@ -28,30 +42,19 @@ if (!loader) {
 
 const { default: Content, frontmatter } = await loader();
 const title = frontmatter?.title ?? slug;
+const navCurrent = navMap[slug ?? ''] ?? 'guides';
 ---
 
-<SiteShell title={title}>
+<SiteShell title={title} navCurrent={navCurrent}>
+  <header class="chapter__mast">
+    <p class="chapter__index">{slug}</p>
+    <h1 class="chapter__title">{title}</h1>
+    {frontmatter?.description && <p class="chapter__desc">{frontmatter.description}</p>}
+  </header>
+
+  <DividerRule />
+
   <article class="prose chapter">
-    <header class="chapter__header">
-      <p class="chapter__slug">{slug}</p>
-      <h1>{title}</h1>
-      {frontmatter?.description && <p class="chapter__desc">{frontmatter.description}</p>}
-    </header>
     <Content />
   </article>
 </SiteShell>
-
-<style>
-  .chapter__slug {
-    font-size: var(--font-size-base);
-    letter-spacing: 0.08em;
-    color: var(--color-ink-muted);
-    text-transform: uppercase;
-    margin: 0 0 var(--grid);
-  }
-
-  .chapter__desc {
-    color: var(--color-ink-muted);
-    font-size: calc(var(--font-size-base) * 1.35);
-  }
-</style>

@@ -1,21 +1,21 @@
 import type { ReactNode } from 'react';
 
 export const BLUEPRINT = {
-  ink: '#2563eb',
-  paper: '#f1f5f9',
-  panel: '#f8fafc',
-  gridMinor: 'rgba(37, 99, 235, 0.08)',
-  gridMajor: 'rgba(37, 99, 235, 0.15)',
-  hatch: 'rgba(37, 99, 235, 0.25)',
-  label: 'rgba(37, 99, 235, 0.7)',
+  ink: '#3548e8',
+  paper: '#fcfcfe',
+  panel: '#fcfcfe',
+  gridMinor: 'rgba(53, 72, 232, 0.08)',
+  gridMajor: 'rgba(53, 72, 232, 0.14)',
+  hatch: 'rgba(53, 72, 232, 0.22)',
+  label: 'rgba(53, 72, 232, 0.65)',
 } as const;
 
 export function BlueprintStyles() {
   return (
     <style>{`
-      @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600;700&display=swap');
-      .blueprint-text {
-        font-family: 'Fira Code', 'Share Tech Mono', 'Courier New', monospace;
+        @import url('https://departuremono.com/mono.css');
+        .blueprint-text {
+          font-family: 'Departure Mono', ui-monospace, monospace;
         fill: ${BLUEPRINT.ink};
       }
       .blueprint-title { font-weight: 700; letter-spacing: 1.5px; }

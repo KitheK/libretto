@@ -1,105 +1,43 @@
 ---
 import SiteShell from '../components/layout/SiteShell.astro';
+import DividerRule from '../components/layout/DividerRule.astro';
+import TableOfContents from '../components/layout/TableOfContents.astro';
+import Fig001SystemArchitecture from '../components/diagrams/Fig001SystemArchitecture.tsx';
 ---
 
-<SiteShell title="Libretto">
+<SiteShell title="Libretto" navCurrent="guides">
   <section class="hero">
-    <h1>Libretto</h1>
-    <p class="hero__tagline"><em>The blueprint to Conductor</em></p>
-    <p class="hero__lede">
-      An animated technical manual documenting how Conductor was designed, built, and reviewed.
-      Every claim links to verifiable evidence in the capstone repository.
+    <h1 class="hero__wordmark">Conductor</h1>
+    <p class="hero__meta">
+      A guide to how Group 1 built it.<br />
+      <em>— Group 1, UBCO COSC499</em>
     </p>
-    <div class="hero__actions">
-      <a class="button" href="/chapters/01-mission">Start reading</a>
-      <a class="button button--ghost" href="https://github.com/UBCO-COSC499-S2026/capstone-team-1">
-        Conductor repo
-      </a>
+  </section>
+
+  <DividerRule />
+
+  <TableOfContents />
+
+  <DividerRule />
+
+  <section class="intro-band">
+    <div class="intro-band__prose drop-cap">
+      <p>
+        Have you ever wondered what it takes to let an instructor manage a Canvas course through plain language —
+        without giving up control of what actually changes? Conductor is our answer: a microservice stack that routes
+        natural-language intent through an agent, previews every mutation, and only then touches the LMS API.
+      </p>
+      <p>
+        Libretto is the manual for that system. Not a README substitute — a reference book in the style of
+        <em>Making Software</em>, with diagrams, design rationale, and sources you can verify in the capstone repo.
+        Pretty neat.
+      </p>
     </div>
-  </section>
 
-  <section class="chapter-grid">
-    <h2>Chapters</h2>
-    <ul>
-      <li><a href="/chapters/01-mission">01 · Mission</a></li>
-      <li><a href="/chapters/02-requirements">02 · Requirements</a></li>
-      <li><a href="/chapters/03-architecture">03 · Architecture</a></li>
-      <li><a href="/chapters/04-data-flows">04 · Data flows</a></li>
-      <li><a href="/chapters/05-database">05 · Database</a></li>
-      <li><a href="/chapters/06-ui">06 · UI</a></li>
-      <li><a href="/chapters/07-agent">07 · Agent</a></li>
-      <li><a href="/chapters/08-canvas-bridge">08 · Canvas bridge</a></li>
-      <li><a href="/chapters/09-dev-process">09 · Dev process</a></li>
-      <li><a href="/chapters/10-history">10 · History</a></li>
-    </ul>
-  </section>
-
-  <section class="evidence-callout">
-    <h2>Evidence-first</h2>
-    <p>
-      Libretto explains; the capstone repo proves. Browse the full manifest at
-      <a href="/appendix/evidence">appendix/evidence</a>.
-    </p>
+    <aside class="diagram-panel" aria-label="System overview diagram">
+      <span class="diagram-panel__tag">FIG-001</span>
+      <span class="diagram-panel__edge">[ SYSTEM OVERVIEW ]</span>
+      <Fig001SystemArchitecture client:visible />
+    </aside>
   </section>
 </SiteShell>
-
-<style>
-  .hero__tagline {
-    font-size: calc(var(--font-size-base) * 1.6);
-    color: var(--color-ink-muted);
-    margin-top: 0;
-  }
-
-  .hero__lede {
-    max-width: var(--max-width);
-    font-size: calc(var(--font-size-base) * 1.5);
-  }
-
-  .hero__actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: calc(var(--grid) * 2);
-    margin: calc(var(--grid) * 3) 0;
-  }
-
-  .button {
-    display: inline-block;
-    padding: calc(var(--grid) * 1.5) calc(var(--grid) * 3);
-    background: var(--color-accent);
-    color: #fff;
-    text-decoration: none;
-    border: 1px solid var(--color-accent);
-  }
-
-  .button--ghost {
-    background: transparent;
-    color: var(--color-accent);
-  }
-
-  .chapter-grid ul {
-    list-style: none;
-    padding: 0;
-    columns: 2;
-    gap: calc(var(--grid) * 4);
-  }
-
-  .chapter-grid li {
-    margin-bottom: var(--grid);
-  }
-
-  .chapter-grid a {
-    text-decoration: none;
-    color: var(--color-ink);
-  }
-
-  .chapter-grid a:hover {
-    color: var(--color-accent);
-  }
-
-  .evidence-callout {
-    margin-top: calc(var(--grid) * 6);
-    padding: calc(var(--grid) * 3);
-    border: 1px solid var(--color-border);
-    background: var(--color-evidence-bg);
-  }
-</style>

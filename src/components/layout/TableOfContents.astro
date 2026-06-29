@@ -1,0 +1,31 @@
+---
+import { tableOfContents } from '../../data/tableOfContents';
+---
+
+<section class="toc" aria-labelledby="toc-heading">
+  <div class="toc__head">
+    <h2 id="toc-heading" class="toc__title">Table of Contents.</h2>
+    <p class="toc__meta">PROGRESS · IN PROGRESS</p>
+  </div>
+
+  <div class="toc__columns">
+    {
+      tableOfContents.map((column) => (
+        <div class="toc__column">
+          <h3 class="toc__column-heading">{column.heading}</h3>
+          <ul class="toc__list">
+            {column.items.map((item) => (
+              <li class="toc__item">
+                <a class="toc__link" href={item.href}>
+                  <span class="toc__label">{item.label}</span>
+                  <span class="toc__leaders" aria-hidden="true" />
+                  <span class="toc__rev">[{item.rev}]</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))
+    }
+  </div>
+</section>

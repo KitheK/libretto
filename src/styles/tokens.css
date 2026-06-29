@@ -1,18 +1,33 @@
 :root {
-  --color-paper: #f4f1ea;
-  --color-ink: #1a1a18;
-  --color-ink-muted: #5c5a54;
-  --color-accent: #3d4ee8;
-  --color-accent-soft: #e8ebff;
-  --color-border: #d8d4c8;
-  --color-evidence-bg: #ece8df;
+  /* design.md palette */
+  --bg-paper: #fafafc;
+  --bg-panel: #fcfcfe;
+  --grid-dot: #e6e8f2;
+  --ink: #19191d;
+  --ink-muted: #9a9ca8;
+  --signal: #3548e8;
+  --signal-mid: #7c8aee;
+  --signal-pale: #dce2fb;
+  --hairline: #e4e6ed;
 
+  /* legacy aliases */
+  --color-paper: var(--bg-paper);
+  --color-ink: var(--ink);
+  --color-ink-muted: var(--ink-muted);
+  --color-accent: var(--signal);
+  --color-accent-soft: var(--signal-pale);
+  --color-border: var(--hairline);
+  --color-evidence-bg: var(--bg-panel);
+
+  --font-display: "Departure Mono", ui-monospace, monospace;
+  --font-serif: "Source Serif 4", Georgia, "Times New Roman", serif;
   --font-mono: "Departure Mono", ui-monospace, monospace;
-  --font-size-base: 11px;
-  --line-height: 1.65;
-  --grid: 11px;
-  --max-width: 72ch;
-  --site-max-width: 1100px;
+
+  --font-size-base: 16px;
+  --line-height-body: 1.65;
+  --measure: 42rem;
+  --site-max-width: 96rem;
+  --grid: 8px;
 }
 
 @media (prefers-reduced-motion: reduce) {
