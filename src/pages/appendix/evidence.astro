@@ -1,0 +1,61 @@
+---
+import SiteShell from '../../components/layout/SiteShell.astro';
+import { getAllEvidence } from '../../lib/evidence';
+
+const entries = getAllEvidence().sort((a, b) => a.id.localeCompare(b.id));
+---
+
+<SiteShell title="Evidence index">
+  <article class="prose">
+    <h1>Evidence manifest</h1>
+    <p>
+      Every Libretto claim maps to a stable ID and a GitHub URL in the Conductor repository.
+    </p>
+
+    <table class="manifest-table">
+      <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Label</th>
+          <th scope="col">Source</th>
+        </tr>
+      </thead>
+      <tbody>
+        {entries.map((entry) => (
+          <tr>
+            <td><code>{entry.id}</code></td>
+            <td>{entry.label}</td>
+            <td>
+              <a href={entry.url} target="_blank" rel="noopener noreferrer">
+                View on GitHub ↗
+              </a>
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </article>
+</SiteShell>
+
+<style>
+  .manifest-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: calc(var(--font-size-base) * 1.2);
+    margin-top: calc(var(--grid) * 3);
+  }
+
+  .manifest-table th,
+  .manifest-table td {
+    border: 1px solid var(--color-border);
+    padding: calc(var(--grid) * 1.5);
+    text-align: left;
+    vertical-align: top;
+  }
+
+  .manifest-table th {
+    background: var(--color-evidence-bg);
+    font-weight: 400;
+    letter-spacing: 0.04em;
+  }
+</style>

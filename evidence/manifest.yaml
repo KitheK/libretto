@@ -1,0 +1,27 @@
+EV-001:
+  label: Mission statement
+  url: https://github.com/UBCO-COSC499-S2026/capstone-team-1/blob/Documents/docs/charter/charter.md#21-mission-statement
+
+EV-002:
+  label: Vision statement
+  url: https://github.com/UBCO-COSC499-S2026/capstone-team-1/blob/Documents/docs/charter/charter.md#22-vision-statement
+
+EV-010:
+  label: docker-compose services
+  url: https://github.com/UBCO-COSC499-S2026/capstone-team-1/blob/development/app/docker-compose.yaml
+
+EV-011:
+  label: Kong gateway routes
+  url: https://github.com/UBCO-COSC499-S2026/capstone-team-1/blob/development/app/infrastructure/api_gateway/config/kong.yaml
+
+EV-020:
+  label: PR standards (charter §10.1)
+  url: https://github.com/UBCO-COSC499-S2026/capstone-team-1/blob/Documents/docs/charter/charter.md#101-pull-request-standards--code-review
+
+EV-030:
+  label: Frontend CI workflow
+  url: https://github.com/UBCO-COSC499-S2026/capstone-team-1/blob/development/.github/workflows/frontend-ci.yml
+
+EV-229:
+  label: Team Canvas development issue
+  url: https://github.com/UBCO-COSC499-S2026/capstone-team-1/issues/229

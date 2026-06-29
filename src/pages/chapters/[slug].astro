@@ -1,0 +1,57 @@
+---
+import SiteShell from '../../components/layout/SiteShell.astro';
+
+const chapterModules = import.meta.glob('../../content/chapters/*.mdx');
+
+export function getStaticPaths() {
+  return [
+    { params: { slug: '01-mission' } },
+    { params: { slug: '02-requirements' } },
+    { params: { slug: '03-architecture' } },
+    { params: { slug: '04-data-flows' } },
+    { params: { slug: '05-database' } },
+    { params: { slug: '06-ui' } },
+    { params: { slug: '07-agent' } },
+    { params: { slug: '08-canvas-bridge' } },
+    { params: { slug: '09-dev-process' } },
+    { params: { slug: '10-history' } },
+  ];
+}
+
+const { slug } = Astro.params;
+const modulePath = `../../content/chapters/${slug}.mdx`;
+const loader = chapterModules[modulePath];
+
+if (!loader) {
+  throw new Error(`Chapter not found: ${slug}`);
+}
+
+const { default: Content, frontmatter } = await loader();
+const title = frontmatter?.title ?? slug;
+---
+
+<SiteShell title={title}>
+  <article class="prose chapter">
+    <header class="chapter__header">
+      <p class="chapter__slug">{slug}</p>
+      <h1>{title}</h1>
+      {frontmatter?.description && <p class="chapter__desc">{frontmatter.description}</p>}
+    </header>
+    <Content />
+  </article>
+</SiteShell>
+
+<style>
+  .chapter__slug {
+    font-size: var(--font-size-base);
+    letter-spacing: 0.08em;
+    color: var(--color-ink-muted);
+    text-transform: uppercase;
+    margin: 0 0 var(--grid);
+  }
+
+  .chapter__desc {
+    color: var(--color-ink-muted);
+    font-size: calc(var(--font-size-base) * 1.35);
+  }
+</style>

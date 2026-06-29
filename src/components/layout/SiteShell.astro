@@ -1,0 +1,156 @@
+---
+interface Props {
+  title?: string;
+}
+
+const { title } = Astro.props;
+
+const chapters = [
+  { slug: '01-mission', title: 'Mission' },
+  { slug: '02-requirements', title: 'Requirements' },
+  { slug: '03-architecture', title: 'Architecture' },
+  { slug: '04-data-flows', title: 'Data flows' },
+  { slug: '05-database', title: 'Database' },
+  { slug: '06-ui', title: 'UI' },
+  { slug: '07-agent', title: 'Agent' },
+  { slug: '08-canvas-bridge', title: 'Canvas bridge' },
+  { slug: '09-dev-process', title: 'Dev process' },
+  { slug: '10-history', title: 'History' },
+];
+
+const conductorRepo = 'https://github.com/UBCO-COSC499-S2026/capstone-team-1';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Libretto — the blueprint to Conductor" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title ? `${title} · Libretto` : 'Libretto'}</title>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="site-header__inner">
+        <a class="site-brand" href="/">
+          <span class="site-brand__name">Libretto</span>
+          <span class="site-brand__tagline">the blueprint to Conductor</span>
+        </a>
+        <nav class="site-nav" aria-label="Chapters">
+          <details class="site-nav__menu">
+            <summary>Chapters</summary>
+            <ul>
+              {chapters.map((ch) => (
+                <li>
+                  <a href={`/chapters/${ch.slug}`}>{ch.title}</a>
+                </li>
+              ))}
+              <li>
+                <a href="/appendix/evidence">Evidence index</a>
+              </li>
+            </ul>
+          </details>
+        </nav>
+      </div>
+    </header>
+
+    <main class="site-main">
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <div class="site-footer__inner">
+        <p>
+          Libretto documents <a href={conductorRepo}>Conductor</a>.
+          All evidence links point to the capstone repository.
+        </p>
+        <p class="site-footer__meta">
+          <a href={conductorRepo}>UBCO-COSC499-S2026/capstone-team-1</a>
+          ·
+          <a href="https://github.com/UBCO-COSC499-S2026/libretto">Libretto source</a>
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>
+
+<style is:global>
+  @import "../../styles/global.css";
+
+  .site-header {
+    border-bottom: 1px solid var(--color-border);
+    background: #fff;
+  }
+
+  .site-header__inner,
+  .site-footer__inner,
+  .site-main {
+    max-width: var(--site-max-width);
+    margin: 0 auto;
+    padding: calc(var(--grid) * 3);
+  }
+
+  .site-brand {
+    text-decoration: none;
+    color: inherit;
+    display: inline-block;
+  }
+
+  .site-brand__name {
+    display: block;
+    font-size: calc(var(--font-size-base) * 2.4);
+    letter-spacing: -0.03em;
+  }
+
+  .site-brand__tagline {
+    display: block;
+    font-size: calc(var(--font-size-base) * 1.2);
+    color: var(--color-ink-muted);
+    font-style: italic;
+  }
+
+  .site-nav {
+    margin-top: calc(var(--grid) * 2);
+  }
+
+  .site-nav__menu summary {
+    cursor: pointer;
+    color: var(--color-accent);
+    list-style: none;
+  }
+
+  .site-nav__menu summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .site-nav ul {
+    margin: var(--grid) 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .site-nav li + li {
+    margin-top: calc(var(--grid) * 0.75);
+  }
+
+  .site-nav a {
+    text-decoration: none;
+    color: var(--color-ink);
+  }
+
+  .site-nav a:hover {
+    color: var(--color-accent);
+  }
+
+  .site-footer {
+    border-top: 1px solid var(--color-border);
+    margin-top: calc(var(--grid) * 6);
+    color: var(--color-ink-muted);
+    font-size: calc(var(--font-size-base) * 1.2);
+  }
+
+  .site-footer__meta {
+    margin-top: var(--grid);
+  }
+</style>
