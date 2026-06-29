@@ -3,7 +3,7 @@
 **Site name:** **Libretto** — *the blueprint to Conductor*  
 **Product:** **Conductor** — agentic AI for instructors to manage Canvas courses via natural language  
 **Source of truth (evidence):** [UBCO-COSC499-S2026/capstone-team-1](https://github.com/UBCO-COSC499-S2026/capstone-team-1)  
-**Libretto repository:** [UBCO-COSC499-S2026/libretto](https://github.com/UBCO-COSC499-S2026/libretto)  
+**Libretto repository:** [KitheK/libretto](https://github.com/KitheK/libretto) (personal project)  
 **Course:** UBCO COSC499 S2026 (Summer)  
 **Inspiration:** [Making Software](https://www.makingsoftware.com/)  
 **Typography:** [Departure Mono](https://departuremono.com/) (SIL OFL)

@@ -2,11 +2,12 @@
 
 *The blueprint to [Conductor](https://github.com/UBCO-COSC499-S2026/capstone-team-1).*
 
-Animated blueprint site documenting how Conductor was designed, built, and reviewed.
+Personal documentation site (not affiliated with the course org). Animated blueprint documenting how Conductor was designed, built, and reviewed.
 Every claim links to verifiable evidence in the capstone repository.
 
 | | |
 |---|---|
+| **Repo** | [KitheK/libretto](https://github.com/KitheK/libretto) |
 | **Live site** | TBD after Vercel deploy |
 | **Evidence source** | [UBCO-COSC499-S2026/capstone-team-1](https://github.com/UBCO-COSC499-S2026/capstone-team-1) |
 | **Design spec** | [docs/DESIGN.md](docs/DESIGN.md) |

@@ -49,7 +49,7 @@ libretto/                          # repo root = site
 
 ### Task 0a: Create Libretto repository ✅
 
-- [x] Create `UBCO-COSC499-S2026/libretto` on GitHub
+- [x] Create `KitheK/libretto` on GitHub (personal repo)
 - [x] Clone locally; add README, design spec, development plan
 - [x] Bootstrap Astro 5 + React + MDX at repo root
 
@@ -180,7 +180,7 @@ Each task adds manifest entries and writes MDX prose. Sync `content/_sources/` b
 
 - `vercel.json` — static output `dist/`
 - `.github/workflows/ci.yml` — `npm run validate` → `npm run build`
-- Connect Vercel to `UBCO-COSC499-S2026/libretto`
+- Connect Vercel to `KitheK/libretto`
 - After first deploy: update README live URL; **then** optionally execute Task 0b
 
 ---
