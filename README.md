@@ -1,41 +1,23 @@
 # Libretto
 
-*The blueprint to our capstone Canvas assistant.*
+A manual of the capstone Canvas assistant. It explains the containers in `capstone-team-1`: which box a sentence passes through, which service is allowed to call Canvas, and where the record of that work is kept.
 
-Personal documentation site (not affiliated with the course org). Animated technical manual documenting how the application was designed, built, and reviewed.
-Every claim links to verifiable evidence in the capstone repository.
-
-| | |
-|---|---|
-| **Repo** | [KitheK/libretto](https://github.com/KitheK/libretto) |
-| **Live site** | TBD after Vercel deploy |
-| **Evidence source** | [UBCO-COSC499-S2026/capstone-team-1](https://github.com/UBCO-COSC499-S2026/capstone-team-1) |
-| **Design spec** | [docs/DESIGN.md](docs/DESIGN.md) |
-| **Development plan** | [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md) |
-
-## Quick start
+The visual system follows [Making Software](https://www.makingsoftware.com/): paper ground, one blue, a serif for reading, and Departure Mono for everything a machine would print. The plan is in [docs/superpowers/plans/2026-11-15-libretto-manual.md](docs/superpowers/plans/2026-11-15-libretto-manual.md).
 
 ```bash
 npm install
-npm run sync:conductor   # optional — pulls read-only snapshots from capstone-team-1
 npm run dev
 ```
 
-## Fonts
-
-Departure Mono v1.500 is bundled locally at `public/fonts/departure-mono/` (SIL OFL).
-Use font sizes in **11px increments** per the typeface README.
-
-## Scripts
-
 | Command | Purpose |
-|---------|---------|
-| `npm run dev` | Local dev server |
-| `npm run build` | Validate evidence + production build |
-| `npm run validate` | Check evidence manifest and MDX references |
-| `npm run sync:conductor` | Clone capstone branches into `.cache/` and snapshot to `content/_sources/` |
+|---|---|
+| `npm run dev` | Local manual |
+| `npm test` | Check that every chapter names the stack it claims to explain |
+| `npm run build` | Typecheck and production build |
 
-## Repository split
+Departure Mono 1.500 is bundled in `public/fonts/` under the SIL Open Font License. Set it in 11px steps.
 
-- **Capstone application** — code lives in `capstone-team-1`
-- **Libretto** — this repo; site code, diagrams, evidence manifest only
+## Live Conductor
+
+`public/live/conductor/` is the real Conductor frontend (development @ 9893400a), built unmodified and run against an in-browser mock backend. The homepage and chapter 02 embed it with a working light/dark switch; chapters 02 and 05 show clips recorded from it. Rebuild and re-record with the scripts in [tools/conductor-live/](tools/conductor-live/README.md). All data in the embed, the clips, and the `public/conductor/live/` screenshots is mock data.
+

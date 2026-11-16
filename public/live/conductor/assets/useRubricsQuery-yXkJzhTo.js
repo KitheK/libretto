@@ -1,0 +1,1 @@
+import{t as e}from"./queryOptions-Dfvzj6n2.js";import{_ as t,n}from"./index-CsFmEV1L.js";import{a as r}from"./rubrics-DhVWoCCP.js";function i(t,i=!0){return e({queryKey:n.canvas.rubrics(t),queryFn:()=>r(t),enabled:i&&Number.isFinite(t)})}function a(e,n=!0){return t(i(e,n))}export{a as t};

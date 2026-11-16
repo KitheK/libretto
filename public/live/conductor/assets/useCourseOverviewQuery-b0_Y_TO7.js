@@ -1,0 +1,1 @@
+import{t as e}from"./queryOptions-Dfvzj6n2.js";import{_ as t,n}from"./index-CsFmEV1L.js";import{a as r}from"./courses-Cv2qCW7D.js";function i(t){return e({queryKey:n.canvas.overview(t),queryFn:()=>r(t),enabled:Number.isFinite(t)})}function a(e){return t(i(e))}export{a as n,i as t};

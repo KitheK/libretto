@@ -1,0 +1,1 @@
+function e(e=`ws://localhost:8000/api/notify`){return e.replace(/\/$/,``)}function t(e=`http://localhost:8000/api`){return`${e.replace(/\/$/,``)}/canvas-tools`}export{e as n,t};

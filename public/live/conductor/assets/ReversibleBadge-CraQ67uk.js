@@ -1,0 +1,1 @@
+import{t as e}from"./jsx-runtime-n5LQ9ujS.js";function t(e){return e?`bg-success-soft text-success`:`bg-danger-soft text-danger`}var n=e();function r({reversible:e}){return(0,n.jsx)(`span`,{className:`w-fit max-w-full rounded-full px-3 py-1.5 text-[13px] font-bold leading-none ${t(e)}`,"data-testid":`reversible-badge`,children:e?`Reversible`:`Not reversible`})}export{r as t};

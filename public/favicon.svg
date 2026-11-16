@@ -1,4 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
-  <rect width="32" height="32" fill="#f4f1ea"/>
-  <text x="4" y="22" font-family="monospace" font-size="14" fill="#3D4EE8">L</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" shape-rendering="crispEdges">
+  <rect width="16" height="16" fill="#FBFBFB"/>
+  <g fill="#103DFF">
+    <rect x="3" y="3" width="2" height="10"/>
+    <rect x="3" y="11" width="10" height="2"/>
+  </g>
 </svg>

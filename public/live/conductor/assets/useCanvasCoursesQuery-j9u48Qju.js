@@ -1,0 +1,1 @@
+import{t as e}from"./queryOptions-Dfvzj6n2.js";import{_ as t,n}from"./index-CsFmEV1L.js";import{r}from"./courses-Cv2qCW7D.js";function i(){return e({queryKey:n.canvas.courses(),queryFn:r})}function a(){return t(i())}export{a as n,i as t};
