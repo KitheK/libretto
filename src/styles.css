@@ -194,6 +194,52 @@ input {
   color: var(--action);
 }
 
+.demo-callout {
+  width: 100%;
+  margin-top: 0.75rem;
+}
+
+.route-fallback {
+  padding: 2rem 6vw;
+  opacity: 0.55;
+}
+
+.toc-frieze {
+  width: 100%;
+  max-width: 42rem;
+  margin: 0.85rem 0 1.1rem;
+}
+
+.toc-frieze--foot {
+  margin: 2rem auto 0.5rem;
+  min-height: 3.5rem;
+}
+
+.sidebar-frieze {
+  margin: 0.65rem -0.35rem 0.35rem;
+  overflow: hidden;
+  min-height: 2.5rem;
+}
+
+.plate-frame {
+  width: 100%;
+}
+
+.plate--framed .plate-sheet {
+  border: 0;
+  background: transparent;
+  padding: 0.55rem 0.35rem 1.75rem 1.55rem;
+}
+
+.plate--framed .plate-sheet::before,
+.plate--framed .plate-sheet::after {
+  display: none;
+}
+
+.desk-motion-grid > .demo-callout {
+  min-width: 0;
+}
+
 .home {
   padding: 1.75rem 6vw 5rem;
 }
@@ -420,45 +466,6 @@ input {
 
 .scroll-stage {
   --scroll-progress: 0;
-}
-
-.scroll-stage .home-hero .home-copy {
-  transform: translate3d(0, calc(var(--scroll-progress) * -18px), 0);
-  opacity: calc(1 - var(--scroll-progress) * 0.22);
-  transition: none;
-  will-change: transform, opacity;
-}
-
-.scroll-stage .home-hero .plate {
-  transform: translate3d(calc(var(--scroll-progress) * -12px), calc(var(--scroll-progress) * 28px), 0)
-    scale(calc(1 - var(--scroll-progress) * 0.04));
-  transition: none;
-  will-change: transform;
-}
-
-.scroll-stage .home-hero .flow-track {
-  animation-duration: calc(1.35s + var(--scroll-progress) * 0.9s);
-}
-
-.scroll-stage .stats,
-.scroll-stage .part-block,
-.scroll-stage .faq,
-.scroll-stage .colophon {
-  transform: translate3d(0, calc(var(--scroll-progress) * -10px), 0);
-  opacity: calc(0.88 + var(--scroll-progress) * 0.12);
-  will-change: transform, opacity;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .scroll-stage .home-hero .home-copy,
-  .scroll-stage .home-hero .plate,
-  .scroll-stage .stats,
-  .scroll-stage .part-block,
-  .scroll-stage .faq,
-  .scroll-stage .colophon {
-    transform: none !important;
-    opacity: 1 !important;
-  }
 }
 
 .kicker {
@@ -1066,6 +1073,11 @@ input {
   right: 6px;
   bottom: 6px;
   border-width: 0 1px 1px 0;
+}
+
+.home-toc .toc-frieze--foot,
+.contents-page .toc-frieze--foot {
+  margin-inline: auto;
 }
 
 .fig-index {

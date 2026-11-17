@@ -1,7 +1,10 @@
 import { Link } from "react-router-dom";
 import { chapters, parts, totalWords, wordCount } from "../content/manual";
+import { LazyFrieze, OrnamentSuspense, useIdleReady } from "./ornamentLazy";
 
 export function ContentsPage() {
+  const ornamentsReady = useIdleReady(180);
+
   return (
     <main className="contents-page">
       <header className="chapter-head">
@@ -30,6 +33,13 @@ export function ContentsPage() {
             ))}
         </section>
       ))}
+      {ornamentsReady ? (
+        <div className="toc-frieze toc-frieze--foot" aria-hidden="true">
+          <OrnamentSuspense>
+            <LazyFrieze variant="pavot30" height={64} palette="libretto" crop="band" ground={false} animate={false} />
+          </OrnamentSuspense>
+        </div>
+      ) : null}
     </main>
   );
 }

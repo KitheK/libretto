@@ -20,18 +20,34 @@ export function LiveConductor({ initialRoute = "/dashboard" }: { initialRoute?: 
   const [theme, setTheme] = useState<Theme>("light");
   const [path, setPath] = useState(initialRoute);
   const [scale, setScale] = useState(0.6);
-  const [src, setSrc] = useState(() => liveUrl(initialRoute, "light"));
+  const [active, setActive] = useState(false);
+  const [src, setSrc] = useState("");
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
     const wrap = wrapRef.current;
     if (!wrap) return;
-    const observer = new ResizeObserver(([entry]) => {
+    const resize = new ResizeObserver(([entry]) => {
       setScale(entry.contentRect.width / APP_WIDTH);
     });
-    observer.observe(wrap);
-    return () => observer.disconnect();
+    resize.observe(wrap);
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry?.isIntersecting) setActive(true);
+      },
+      { rootMargin: "120px", threshold: 0.05 },
+    );
+    io.observe(wrap);
+    return () => {
+      resize.disconnect();
+      io.disconnect();
+    };
   }, []);
+
+  useEffect(() => {
+    if (!active || src) return;
+    setSrc(liveUrl(route, theme));
+  }, [active, route, theme, src]);
 
   useEffect(() => {
     const onMessage = (event: MessageEvent) => {
@@ -54,7 +70,7 @@ export function LiveConductor({ initialRoute = "/dashboard" }: { initialRoute?: 
   const go = (next: string) => {
     setRoute(next);
     setLoaded(false);
-    setSrc(liveUrl(next, theme));
+    if (active) setSrc(liveUrl(next, theme));
   };
 
   return (
@@ -80,18 +96,24 @@ export function LiveConductor({ initialRoute = "/dashboard" }: { initialRoute?: 
         </div>
       </div>
       <div className="live-screen" ref={wrapRef} style={{ height: APP_HEIGHT * scale }}>
-        {!loaded ? <p className="live-loading mono">STARTING CONDUCTOR …</p> : null}
-        <iframe
-          ref={frameRef}
-          key={src}
-          src={src}
-          title="Conductor, running live with mock data"
-          loading="lazy"
-          width={APP_WIDTH}
-          height={APP_HEIGHT}
-          style={{ transform: `scale(${scale})` }}
-          onLoad={() => setLoaded(true)}
-        />
+        {!active ? (
+          <p className="live-loading mono">SCROLL TO LOAD CONDUCTOR …</p>
+        ) : !loaded ? (
+          <p className="live-loading mono">STARTING CONDUCTOR …</p>
+        ) : null}
+        {src ? (
+          <iframe
+            ref={frameRef}
+            key={src}
+            src={src}
+            title="Conductor, running live with mock data"
+            loading="lazy"
+            width={APP_WIDTH}
+            height={APP_HEIGHT}
+            style={{ transform: `scale(${scale})` }}
+            onLoad={() => setLoaded(true)}
+          />
+        ) : null}
       </div>
       <div className="live-foot">
         <div className="live-routes" role="group" aria-label="Open a Conductor page">

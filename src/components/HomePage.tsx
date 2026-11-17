@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { chapters, faqs, homeFigure, parts, totalWords, wordCount } from "../content/manual";
 import { ContentsDrawer } from "./ContentsDrawer";
@@ -6,16 +6,20 @@ import { ContentsPanel } from "./ContentsPanel";
 import { PageEnter } from "./PageEnter";
 import { PixelWordmark } from "./PixelWordmark";
 import { Plate } from "./Plate";
-import { ScrollStage } from "./ScrollStage";
-import { DeskInteractives } from "./desk/DeskInteractives";
 import { ReadingControls } from "./ReadingControls";
-import { ShotStrip } from "./ShotStrip";
+import { LazyFrieze, OrnamentSuspense, useIdleReady } from "./ornamentLazy";
+
+const ShotStrip = lazy(() => import("./ShotStrip").then((m) => ({ default: m.ShotStrip })));
+const DeskInteractives = lazy(() =>
+  import("./desk/DeskInteractives").then((m) => ({ default: m.DeskInteractives })),
+);
 
 export function HomePage() {
   const [selected, setSelected] = useState(0);
   const [navOpen, setNavOpen] = useState(false);
   const faq = faqs[selected];
   const words = totalWords();
+  const ornamentsReady = useIdleReady(180);
 
   useEffect(() => {
     if (!navOpen) return;
@@ -28,125 +32,135 @@ export function HomePage() {
 
   return (
     <PageEnter>
-      <ScrollStage>
-        <ContentsDrawer open={navOpen} onClose={() => setNavOpen(false)} />
-        <main className="home">
-          <a className="skip" href="#essay">
-            Skip to the essay
-          </a>
-          <nav className="home-nav" aria-label="Manual">
-            <ContentsPanel open={navOpen} onToggle={() => setNavOpen((value) => !value)} />
-            <div className="home-nav-end">
-              <ReadingControls compact />
-              <span className="mono">COSC 499 · CAPSTONE</span>
-            </div>
-          </nav>
+      <ContentsDrawer open={navOpen} onClose={() => setNavOpen(false)} />
+      <main className="home">
+        <a className="skip" href="#essay">
+          Skip to the essay
+        </a>
+        <nav className="home-nav" aria-label="Manual">
+          <ContentsPanel open={navOpen} onToggle={() => setNavOpen((value) => !value)} />
+          <div className="home-nav-end">
+            <ReadingControls compact />
+            <span className="mono">COSC 499 · CAPSTONE</span>
+          </div>
+        </nav>
 
-          <header className="home-hero">
-            <div className="home-copy" id="essay">
-              <PixelWordmark text="LIBRETTO" cell={11} />
-              <p className="kicker">A MANUAL OF CONDUCTOR · THE SAFE CANVAS MANAGEMENT PLATFORM</p>
-              <p className="lede">
-                Conductor is the platform. Libretto is this guide — named for the book that accompanies a score. An
-                instructor types ordinary language; Conductor’s job is to turn that sentence into a reviewed Canvas
-                instruction, without treating a language model as a safe holder of student data.
-              </p>
-              <p className="lede">
-                At institutional scale, privacy is a boundary problem. Rosters, grades, and SIS identifiers must not travel
-                with a prompt. Writes must wait for a person. Only one service may call Canvas, and it does so under the
-                instructor’s own token.
-              </p>
-              <p className="lede">
-                This book is the map of Conductor’s harness: microservices, the agent loop, and the choices that keep
-                student data out of places an auditor cannot defend. Click the plates. The boxes open.
-              </p>
-            </div>
-            <Plate id={homeFigure} compact />
-          </header>
+        <header className="home-hero">
+          <div className="home-copy" id="essay">
+            <PixelWordmark text="LIBRETTO" cell={11} />
+            <p className="kicker">A MANUAL OF CONDUCTOR · THE SAFE CANVAS MANAGEMENT PLATFORM</p>
+            <p className="lede">
+              Conductor is a natural-language LMS management platform: instructors manage courses in ordinary language.
+              Libretto is this guide, named for the book that accompanies a score. An instructor types a sentence;
+              Conductor’s job is to turn it into a reviewed Canvas instruction, without treating a language model as a
+              safe holder of student data.
+            </p>
+            <p className="lede">
+              At institutional scale, privacy is a boundary problem. Rosters, grades, and SIS identifiers must not travel
+              with a prompt. Writes must wait for a person — the platform is designed for human-in-the-loop (HITL)
+              review. Only one service may call Canvas, and it does so under the instructor’s own token.
+            </p>
+            <p className="lede">
+              This book is the map of Conductor’s development as a platform: microservices, the agent loop, and the
+              choices that kept institutional data private. Click the plates — they are interactive.
+            </p>
+          </div>
+          <Plate id={homeFigure} compact />
+        </header>
 
+        <Suspense fallback={null}>
           <ShotStrip />
+        </Suspense>
+        <Suspense fallback={null}>
           <DeskInteractives />
+        </Suspense>
 
-          <section className="stats" aria-label="Manual statistics">
-            <p className="mono">
-              CHAPTERS
-              <strong>{String(chapters.length).padStart(2, "0")}</strong>
-            </p>
-            <p className="mono">
-              FIGURES
-              <strong>10</strong>
-            </p>
-            <p className="mono">
-              WORDS
-              <strong>{words.toLocaleString("en-US")}</strong>
-            </p>
-            <p className="mono">
-              SERVICES
-              <strong>14</strong>
-            </p>
-          </section>
+        <section className="stats" aria-label="Manual statistics">
+          <p className="mono">
+            CHAPTERS
+            <strong>{String(chapters.length).padStart(2, "0")}</strong>
+          </p>
+          <p className="mono">
+            FIGURES
+            <strong>10</strong>
+          </p>
+          <p className="mono">
+            WORDS
+            <strong>{words.toLocaleString("en-US")}</strong>
+          </p>
+          <p className="mono">
+            SERVICES
+            <strong>14</strong>
+          </p>
+        </section>
 
-          <section aria-labelledby="contents-label">
-            <h2 id="contents-label" className="section-label">
-              CONTENTS
-            </h2>
-            {parts.map((part) => (
-              <div className="part-block" key={part.id}>
-                <h3 className="part-name">
-                  {part.id}. {part.title}
-                </h3>
-                <p className="part-blurb">{part.blurb}</p>
-                {chapters
-                  .filter((chapter) => chapter.part === part.id)
-                  .map((chapter) => (
-                    <Link
-                      className="contents-row"
-                      key={chapter.slug}
-                      to={`/chapters/${chapter.slug}`}
-                      data-click="nav"
-                    >
-                      <span className="mono">{chapter.number}</span>
-                      <span className="contents-title">{chapter.title}</span>
-                      <span className="mono">{wordCount(chapter)} words</span>
-                    </Link>
-                  ))}
-              </div>
-            ))}
-          </section>
-
-          <section aria-labelledby="faq-label">
-            <h2 id="faq-label" className="section-label">
-              COMMON QUESTIONS
-            </h2>
-            <div className="faq">
-              <div className="faq-list" role="listbox" aria-label="Questions">
-                {faqs.map((item, index) => (
-                  <button
-                    key={item.question}
-                    type="button"
-                    role="option"
-                    data-click="select"
-                    aria-selected={index === selected}
-                    onClick={() => setSelected(index)}
+        <section aria-labelledby="contents-label" className="home-toc">
+          <h2 id="contents-label" className="section-label">
+            CONTENTS
+          </h2>
+          {parts.map((part) => (
+            <div className="part-block" key={part.id}>
+              <h3 className="part-name">
+                {part.id}. {part.title}
+              </h3>
+              <p className="part-blurb">{part.blurb}</p>
+              {chapters
+                .filter((chapter) => chapter.part === part.id)
+                .map((chapter) => (
+                  <Link
+                    className="contents-row"
+                    key={chapter.slug}
+                    to={`/chapters/${chapter.slug}`}
+                    data-click="nav"
                   >
-                    {item.question}
-                  </button>
+                    <span className="mono">{chapter.number}</span>
+                    <span className="contents-title">{chapter.title}</span>
+                    <span className="mono">{wordCount(chapter)} words</span>
+                  </Link>
                 ))}
-              </div>
-              <div className="faq-panel">
-                <p className="io">IN</p>
-                <p>{faq.question}</p>
-                <p className="io">OUT</p>
-                <p>{faq.answer}</p>
-              </div>
             </div>
-          </section>
+          ))}
+          {ornamentsReady ? (
+            <div className="toc-frieze toc-frieze--foot" aria-hidden="true">
+              <OrnamentSuspense>
+                <LazyFrieze variant="pavot30" height={64} palette="libretto" crop="band" ground={false} animate={false} />
+              </OrnamentSuspense>
+            </div>
+          ) : null}
+        </section>
 
-          <footer className="colophon mono">
-            UBCO COSC 499 · CONDUCTOR LIVES IN CAPSTONE-TEAM-1 · LIBRETTO IS THE MANUAL · DEPARTURE MONO 1.500
-          </footer>
-        </main>
-      </ScrollStage>
+        <section aria-labelledby="faq-label">
+          <h2 id="faq-label" className="section-label">
+            COMMON QUESTIONS
+          </h2>
+          <div className="faq">
+            <div className="faq-list" role="listbox" aria-label="Questions">
+              {faqs.map((item, index) => (
+                <button
+                  key={item.question}
+                  type="button"
+                  role="option"
+                  data-click="select"
+                  aria-selected={index === selected}
+                  onClick={() => setSelected(index)}
+                >
+                  {item.question}
+                </button>
+              ))}
+            </div>
+            <div className="faq-panel">
+              <p className="io">IN</p>
+              <p>{faq.question}</p>
+              <p className="io">OUT</p>
+              <p>{faq.answer}</p>
+            </div>
+          </div>
+        </section>
+
+        <footer className="colophon mono">
+          UBCO COSC 499 · CONDUCTOR LIVES IN CAPSTONE-TEAM-1 · LIBRETTO IS THE MANUAL · DEPARTURE MONO 1.500
+        </footer>
+      </main>
     </PageEnter>
   );
 }

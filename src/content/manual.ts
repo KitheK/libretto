@@ -22,7 +22,8 @@ export type FigureId =
   | "FIG_008"
   | "FIG_009"
   | "FIG_010"
-  | "FIG_011";
+  | "FIG_011"
+  | "FIG_012";
 
 export type Chapter = {
   number: string;
@@ -71,20 +72,29 @@ export const chapters: Chapter[] = [
     part: "I",
     title: "The shape of it",
     standfirst:
-      "Conductor is the platform. Libretto is this manual. A sentence goes in, a reviewed Canvas change comes out, and student data limits every step in between.",
+      "A sentence goes in, a Canvas change comes out. In the background we orchestrate the entire process so instructors get a safer way to work with course management platforms.",
     blocks: [
       {
         type: "p",
-        text: "Conductor is an instructor assistant for Canvas, the learning management system a large institution runs its courses on. Libretto is named after it: a libretto is the book that goes with a score, and this is the book that goes with Conductor. The promise is narrow and hard to keep. Take a sentence such as “move the midterm one week and tell the class,” turn it into concrete Canvas API calls, and never let the language model become a place where a roster or a gradebook is kept.",
+        text: "Conductor is an instructor assistant primarily designed for Canvas, the learning management system UBC runs its courses on. Libretto is named after the little book that stores opera and orchestra scores: a libretto is the book that goes with a score, and this is the book that goes with Conductor.",
       },
       {
         type: "p",
-        text: "That promise is why Conductor is built as microservices. Identity, orchestration, tool execution, Canvas I/O, live delivery and logging run as separate containers in [app/docker-compose.yaml](https://github.com/UBCO-COSC499-S2026/capstone-team-1/blob/development/app/docker-compose.yaml). Fourteen services start from that file. Docker DNS is the address book: services find each other as `authentication`, `agentic`, `connector` and `mcp-canvas`, not by IP. Health checks decide start order, so the migrator waits for Postgres and ClickHouse, and the services wait for the migrator.",
+        text: "Conductor’s goal was taking natural instructions and converting them into Canvas actions through tool-calling inside the MCP microservice. Take a sentence such as “move the midterm to next week and tell the class.” Conductor’s job is to understand what the instructor wants (find when the midterm is, move it by a week, and announce why), then turn that into a set of Canvas API calls — without ever letting the language model become aware of student information.",
       },
-      { type: "h2", text: "Why the stack is split" },
+      { type: "figure", id: "FIG_012" },
       {
         type: "p",
-        text: "One process that both talked to a model and held Canvas keys would collect every privacy failure in a single place. The team drew boundaries instead. The authentication service is the vault: it holds each instructor’s Canvas URL and API key, and their model key, encrypted with AES-GCM. The agentic service is the harness that plans and decides when to stop and ask. mcp-canvas lists the tools and runs them. The connector (canvas-service) is the only code that sends REST requests to Canvas. Notification delivers live data and mail, and owns none of the agent’s memory.",
+        text: "That is why Conductor is built as microservices. Identity, orchestration, tool execution, the Canvas service, live delivery and logging run as separate containers in [app/docker-compose.yaml](https://github.com/UBCO-COSC499-S2026/capstone-team-1/blob/development/app/docker-compose.yaml). Fourteen services start from that file. Docker DNS is the address book: services find each other as `authentication`, `agentic`, `connector` and `mcp-canvas`, not by IP. Health checks decide start order, so the migrator waits for Postgres and ClickHouse, and the services wait for the migrator.",
+      },
+      { type: "h2", text: "Why we went with a microservices split" },
+      {
+        type: "p",
+        text: "One process that both talked to a model, held Canvas keys, and had access to session data would collect every privacy failure in a single place. The microservices architecture let us draw boundaries around that risk. The system also talks to many external tools, and separate services make those integrations easier to swap and review.",
+      },
+      {
+        type: "p",
+        text: "The authentication service is the vault: it holds each instructor’s Canvas URL and API key, and their model key, encrypted with AES-GCM. The agentic service is the harness that plans and decides when to stop and ask. mcp-canvas lists the tools and runs them. The connector (canvas-service) is the only code that sends REST requests to Canvas. Notification delivers live data and mail, and owns none of the agent’s memory.",
       },
       {
         type: "p",

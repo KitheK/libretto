@@ -1,8 +1,8 @@
 # Libretto
 
-A manual of the capstone Canvas assistant. It explains the containers in `capstone-team-1`: which box a sentence passes through, which service is allowed to call Canvas, and where the record of that work is kept.
+A manual of Conductor — the safe Canvas management platform (COSC 499 Team 1). Paper ground, one blue, Newsreader for reading, Departure Mono for machine print.
 
-The visual system follows [Making Software](https://www.makingsoftware.com/): paper ground, one blue, a serif for reading, and Departure Mono for everything a machine would print. The plan is in [docs/superpowers/plans/2026-11-15-libretto-manual.md](docs/superpowers/plans/2026-11-15-libretto-manual.md).
+## Develop
 
 ```bash
 npm install
@@ -12,12 +12,23 @@ npm run dev
 | Command | Purpose |
 |---|---|
 | `npm run dev` | Local manual |
-| `npm test` | Check that every chapter names the stack it claims to explain |
+| `npm test` | Content and unit checks |
 | `npm run build` | Typecheck and production build |
+| `npm run deploy` | Build and upload to Cloudflare Pages |
 
-Departure Mono 1.500 is bundled in `public/fonts/` under the SIL Open Font License. Set it in 11px steps.
+## Deploy
+
+Production: [499team1.com](https://499team1.com) · Pages: [libretto-745.pages.dev](https://libretto-745.pages.dev)
+
+```bash
+npx wrangler login   # once
+npm run deploy
+```
+
+SPA deep links use `public/_redirects` (`/* → /index.html` 200).
+
+DNS (zone already on Cloudflare): proxied CNAMEs for `499team1.com` and `www` → `libretto-745.pages.dev`.
 
 ## Live Conductor
 
-`public/live/conductor/` is the real Conductor frontend (development @ 9893400a), built unmodified and run against an in-browser mock backend. The homepage and chapter 02 embed it with a working light/dark switch; chapters 02 and 05 show clips recorded from it. Rebuild and re-record with the scripts in [tools/conductor-live/](tools/conductor-live/README.md). All data in the embed, the clips, and the `public/conductor/live/` screenshots is mock data.
-
+`public/live/conductor/` is the real Conductor frontend (development @ 9893400a), built unmodified against an in-browser mock backend. Rebuild and re-record with [tools/conductor-live/](tools/conductor-live/README.md).

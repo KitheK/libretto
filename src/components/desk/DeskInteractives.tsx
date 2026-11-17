@@ -1,4 +1,5 @@
 import { clips } from "../../content/live";
+import { OrnamentFrame } from "../OrnamentFrame";
 import { LiveConductor } from "./LiveConductor";
 import { MotionClip } from "./MotionClip";
 
@@ -13,10 +14,14 @@ export function DeskInteractives() {
         backend. Switch it between light and dark, then watch the recordings under it: the agent thinking through its
         tools, a write waiting for review, and the assistant’s greeting.
       </p>
-      <LiveConductor />
+      <OrnamentFrame variant="pavot30" scale={0.78} gap={10} className="demo-callout">
+        <LiveConductor />
+      </OrnamentFrame>
       <div className="desk-motion-grid">
         {clips.map((clip) => (
-          <MotionClip key={clip.id} clip={clip} />
+          <OrnamentFrame key={clip.id} variant="pavot30" scale={0.72} gap={6} className="demo-callout">
+            <MotionClip clip={clip} />
+          </OrnamentFrame>
         ))}
       </div>
     </section>

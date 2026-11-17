@@ -4,43 +4,54 @@ import type { Clip } from "../../content/live";
 import { usePrefersReducedMotion } from "./usePrefersReducedMotion";
 
 /**
- * A recorded clip of the real Conductor UI. Plays the webm muted and looped;
- * falls back to the GIF if the browser cannot play it. With
- * prefers-reduced-motion it shows the poster and waits for a press.
+ * Plays webm only while in view (poster otherwise). Avoids decoding every
+ * clip at once on the home page — the main scroll jank source.
  */
 export function MotionClip({ clip, wide = false }: { clip: Clip; wide?: boolean }) {
   const reduced = usePrefersReducedMotion();
+  const rootRef = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [inView, setInView] = useState(false);
   const [videoOk, setVideoOk] = useState(true);
-  const [playing, setPlaying] = useState(!reduced);
+  /** User intent; visibility / reduced-motion gate actual playback. */
+  const [wantPlay, setWantPlay] = useState(true);
 
   useEffect(() => {
-    setPlaying(!reduced);
-  }, [reduced]);
+    const node = rootRef.current;
+    if (!node) return;
+    const io = new IntersectionObserver(
+      ([entry]) => setInView(Boolean(entry?.isIntersecting)),
+      { rootMargin: "80px", threshold: 0.15 },
+    );
+    io.observe(node);
+    return () => io.disconnect();
+  }, []);
+
+  const playing = wantPlay && inView && !reduced && videoOk;
 
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
     if (playing) {
-      void video.play().catch(() => setPlaying(false));
+      void video.play().catch(() => setWantPlay(false));
     } else {
       video.pause();
     }
-  }, [playing, videoOk]);
+  }, [playing]);
 
-  const showGif = !videoOk && playing;
+  const showGif = !videoOk && wantPlay && inView && !reduced;
 
   return (
-    <figure className={`clip ${wide ? "clip--wide" : ""}`} data-clip={clip.id}>
+    <figure ref={rootRef} className={`clip ${wide ? "clip--wide" : ""}`} data-clip={clip.id}>
       <div className="clip-frame" style={{ aspectRatio: clip.ratio }}>
-        {videoOk ? (
+        {inView && videoOk ? (
           <video
             ref={videoRef}
             className="clip-media"
             muted
             loop
             playsInline
-            preload={reduced ? "none" : "metadata"}
+            preload="metadata"
             poster={clip.poster}
             aria-label={clip.alt}
             onError={() => setVideoOk(false)}
@@ -48,18 +59,24 @@ export function MotionClip({ clip, wide = false }: { clip: Clip; wide?: boolean 
             <source src={clip.webm} type="video/webm" onError={() => setVideoOk(false)} />
           </video>
         ) : (
-          <img className="clip-media" src={showGif ? clip.gif : clip.poster} alt={clip.alt} loading="lazy" decoding="async" />
+          <img
+            className="clip-media"
+            src={showGif ? clip.gif : clip.poster}
+            alt={clip.alt}
+            loading="lazy"
+            decoding="async"
+          />
         )}
         <button
           type="button"
           className="clip-toggle mono"
-          aria-pressed={playing}
-          aria-label={playing ? `Pause: ${clip.title}` : `Play: ${clip.title}`}
+          aria-pressed={wantPlay && !reduced}
+          aria-label={wantPlay ? `Pause: ${clip.title}` : `Play: ${clip.title}`}
           data-click="toggle"
-          onClick={() => setPlaying((value) => !value)}
+          onClick={() => setWantPlay((value) => !value)}
         >
-          {playing ? <Pause size={12} strokeWidth={2} aria-hidden="true" /> : <Play size={12} strokeWidth={2} aria-hidden="true" />}
-          {playing ? "PAUSE" : "PLAY"}
+          {wantPlay && !reduced ? <Pause size={12} strokeWidth={2} aria-hidden="true" /> : <Play size={12} strokeWidth={2} aria-hidden="true" />}
+          {wantPlay && !reduced ? "PAUSE" : "PLAY"}
         </button>
       </div>
       <figcaption>

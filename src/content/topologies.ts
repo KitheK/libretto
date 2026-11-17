@@ -160,4 +160,14 @@ export const topologies: Record<FigureId, { title: string; mermaid: string }> = 
   merge notify
   commit id: "PR-946"`,
   },
+  FIG_012: {
+    title: "Sentence to Canvas",
+    mermaid: `flowchart LR
+  S["Instructor sentence"] --> A["Agentic plan"]
+  A --> H{"HITL pause\\nwrite tools"}
+  H -->|approve| M["mcp-canvas"]
+  H -->|deny / edit| A
+  M --> C["Connector"]
+  C --> LMS["Canvas REST"]`,
+  },
 };

@@ -8,6 +8,7 @@ const GLYPHS: Record<string, string[]> = {
   O: ["01110", "10001", "10001", "10001", "10001", "10001", "01110"],
 };
 
+/** Blue pixel wordmark (original Libretto mark). */
 export function PixelWordmark({ text, cell = 8 }: { text: string; cell?: number }) {
   const letters = text.toUpperCase().split("");
   const advance = 6 * cell;
@@ -17,9 +18,7 @@ export function PixelWordmark({ text, cell = 8 }: { text: string; cell?: number 
 
   letters.forEach((letter, letterIndex) => {
     const rows = GLYPHS[letter];
-    if (!rows) {
-      return;
-    }
+    if (!rows) return;
     rows.forEach((row, y) => {
       [...row].forEach((bit, x) => {
         if (bit === "1") {

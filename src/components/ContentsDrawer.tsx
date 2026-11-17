@@ -1,7 +1,10 @@
+import { lazy, Suspense } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { chapters, parts } from "../content/manual";
 import { PixelWordmark } from "./PixelWordmark";
 import { ReadingControls } from "./ReadingControls";
+
+const LazyFrieze = lazy(() => import("./nouveau").then((m) => ({ default: m.NouveauFrieze })));
 
 export function ContentsDrawer({ open, onClose }: { open: boolean; onClose: () => void }) {
   const { pathname } = useLocation();
@@ -15,6 +18,13 @@ export function ContentsDrawer({ open, onClose }: { open: boolean; onClose: () =
         <Link className="mark" to="/" data-click="nav" onClick={onClose}>
           <PixelWordmark text="LIBRETTO" cell={3} />
         </Link>
+        {open ? (
+          <div className="sidebar-frieze" aria-hidden="true">
+            <Suspense fallback={null}>
+              <LazyFrieze variant="lys33" height={48} palette="libretto" crop="band" ground={false} animate={false} />
+            </Suspense>
+          </div>
+        ) : null}
         <div className="sidebar-prefs">
           <ReadingControls compact />
         </div>

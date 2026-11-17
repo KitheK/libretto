@@ -433,6 +433,119 @@ function Asking() {
   );
 }
 
+/** FIG_012 — Natural language → HITL → Canvas */
+function SentenceToCanvas() {
+  return (
+    <InteractivePlate
+      id="FIG_012"
+      defaultPart="pause_hitl"
+      hint="Follow the sentence left to right. Writes stop at HITL until the instructor approves."
+    >
+      {({ pick, selected }) => (
+        <Diagram
+          label="Natural language becomes Canvas actions only after human-in-the-loop review."
+          viewBox="0 0 920 280"
+        >
+          <T x={24} y={28} fill={BLUE}>
+            FROM A SENTENCE TO A CANVAS ACTION
+          </T>
+          <Box
+            x={16}
+            y={56}
+            w={150}
+            h={88}
+            title="1  SENTENCE"
+            lines={["ordinary language", "instructor desk"]}
+            tone="client"
+            icon="frontend"
+            partId="frontend"
+            selected={selected("frontend")}
+            onSelect={pick}
+          />
+          <Flow points={[[166, 100], [196, 100]]} duration={1.8} packets={1} />
+          <Box
+            x={196}
+            y={56}
+            w={160}
+            h={88}
+            title="2  PLAN"
+            lines={["agentic ReAct", "scope · sanitize"]}
+            tone="agent"
+            icon="agent"
+            partId="agent"
+            selected={selected("agent")}
+            onSelect={pick}
+          />
+          <Flow points={[[356, 100], [386, 100]]} duration={1.8} delay={0.15} packets={1} />
+          <Box
+            x={386}
+            y={44}
+            w={176}
+            h={112}
+            title="3  HITL PAUSE"
+            lines={["write tools stop", "instructor reviews", "approve · edit · deny"]}
+            tone="agent"
+            icon="pause_hitl"
+            partId="pause_hitl"
+            selected={selected("pause_hitl")}
+            onSelect={pick}
+          />
+          <rect
+            x={382}
+            y={40}
+            width={184}
+            height={120}
+            fill="none"
+            stroke={BLUE}
+            strokeWidth={2.25}
+            strokeDasharray="5 4"
+          />
+          <T x={478} y={28} fill={BLUE} size={10} anchor="middle">
+            required for writes
+          </T>
+          <Flow points={[[562, 100], [592, 100]]} duration={1.8} delay={0.3} packets={1} />
+          <Box
+            x={592}
+            y={56}
+            w={148}
+            h={88}
+            title="4  TOOLS"
+            lines={["mcp-canvas", "named tools only"]}
+            tone="service"
+            icon="mcp"
+            partId="mcp"
+            selected={selected("mcp")}
+            onSelect={pick}
+          />
+          <Flow points={[[740, 100], [770, 100]]} duration={1.8} delay={0.45} packets={1} />
+          <Box
+            x={770}
+            y={56}
+            w={134}
+            h={88}
+            title="5  CANVAS"
+            lines={["connector REST", "instructor key"]}
+            tone="outside"
+            icon="canvas"
+            partId="connector"
+            selected={selected("connector")}
+            onSelect={pick}
+          />
+          <T x={24} y={188} fill={tones.agent.title} size={11}>
+            Example · “move the midterm to next week and tell the class”
+          </T>
+          <T x={24} y={214} fill={tones.edge.body} size={11}>
+            Agent drafts date change + announcement → HITL card → only then does the connector call Canvas.
+          </T>
+          <T x={24} y={248} fill={tones.store.body} size={10}>
+            The model never holds the Canvas key. Student fields are stripped before they re-enter the prompt.
+          </T>
+        </Diagram>
+      )}
+    </InteractivePlate>
+  );
+}
+
 /** FIG_006 — AI harness loop */
 function Loop() {
   return (
@@ -1197,5 +1310,12 @@ export const plates: Record<FigureId, PlateSpec> = {
     caption:
       "Feature branches leave the development trunk and merge back. PR numbers are real merges on capstone-team-1; earlier nodes follow the team log.",
     canvas: <BranchRiver />,
+  },
+  FIG_012: {
+    id: "FIG_012",
+    name: "SENTENCE → CANVAS",
+    caption:
+      "Natural language becomes Canvas actions only after HITL. The dashed box is the required pause on every write.",
+    canvas: <SentenceToCanvas />,
   },
 };

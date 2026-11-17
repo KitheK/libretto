@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { chapterBySlug, chapters, wordCount } from "../content/manual";
 import { shotById } from "../content/shots";
+import { OrnamentFrame } from "./OrnamentFrame";
 import { Plate } from "./Plate";
 import { RichText } from "./RichText";
 import { clipById } from "../content/live";
@@ -95,7 +96,9 @@ export function ChapterPage() {
             if (block.type === "live") {
               return (
                 <div className="chapter-desk" key={`live-${blockIndex}`}>
-                  <LiveConductor initialRoute={block.route} />
+                  <OrnamentFrame variant="pavot30" scale={0.78} gap={10} className="demo-callout">
+                    <LiveConductor initialRoute={block.route} />
+                  </OrnamentFrame>
                 </div>
               );
             }
@@ -103,7 +106,9 @@ export function ChapterPage() {
               const clip = clipById(block.id);
               return clip ? (
                 <div className="chapter-desk" key={`motion-${block.id}`}>
-                  <MotionClip clip={clip} wide />
+                  <OrnamentFrame variant="pavot30" scale={0.72} gap={6} className="demo-callout">
+                    <MotionClip clip={clip} wide />
+                  </OrnamentFrame>
                 </div>
               ) : null;
             }
