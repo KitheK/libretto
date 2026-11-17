@@ -5,6 +5,10 @@
   "observability": {
     "enabled": true
   },
+  // Workers Builds runs `npx wrangler deploy` with no separate build step.
+  "build": {
+    "command": "npm run build"
+  },
   "assets": {
     "directory": "./dist",
     "not_found_handling": "single-page-application"
