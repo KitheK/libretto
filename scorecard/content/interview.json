@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "depth": "standard",
+  "profile": {
+    "kind": "oss",
+    "builders": "solo",
+    "purpose": "portfolio",
+    "readerGoal": "understand",
+    "scale": "weeks"
+  },
+  "answers": {}
+}

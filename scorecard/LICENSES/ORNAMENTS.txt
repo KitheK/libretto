@@ -1,0 +1,5 @@
+Nouveau ornament motifs (Mucha Documents décoratifs plates 30, 33, 01, 46)
+are traced vector components from the Libretto ornaments package.
+
+Intended licence: permissive open source with attribution.
+Decide and record the final licence before first public release.

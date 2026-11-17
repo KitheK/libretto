@@ -9,6 +9,7 @@ import { clipById } from "../content/live";
 import { LiveConductor } from "./desk/LiveConductor";
 import { MotionClip } from "./desk/MotionClip";
 import { ShotFigure } from "./ShotFigure";
+import { PageFootFrieze } from "./PageFootFrieze";
 import { Walkthrough } from "./Walkthrough";
 
 export function ChapterPage() {
@@ -143,6 +144,7 @@ export function ChapterPage() {
             </Link>
           )}
         </nav>
+        <PageFootFrieze />
       </main>
     </>
   );

@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "overview": {
+    "text": "Skill interviews and scans; kit renders content; Write mode saves JSON; CLI launches and checks.",
+    "provenance": "inferred",
+    "source": "generated",
+    "evidence": "scorecard/package.json"
+  },
+  "nodes": [
+    { "id": "skill", "label": "scorecard skill", "path": "skills/scorecard/SKILL.md", "group": "authoring" },
+    { "id": "kit", "label": "scorecard kit", "path": "scorecard/package.json", "group": "runtime" },
+    { "id": "content", "label": "content JSON", "path": "scorecard/content", "group": "data" },
+    { "id": "cli", "label": "scorecard CLI", "path": "scorecard/bin/scorecard.js", "group": "runtime" }
+  ],
+  "edges": [
+    { "from": "skill", "to": "content", "label": "fills" },
+    { "from": "skill", "to": "kit", "label": "scaffolds" },
+    { "from": "cli", "to": "kit", "label": "serves" },
+    { "from": "content", "to": "kit", "label": "drives" }
+  ],
+  "mermaid": "flowchart LR\n  skill[skill] --> content[content]\n  skill --> kit[kit]\n  cli[cli] --> kit\n  content --> kit"
+}

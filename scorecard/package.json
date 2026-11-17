@@ -1,0 +1,33 @@
+{
+  "name": "scorecard",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "bin": {
+    "scorecard": "./bin/scorecard.js"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "test": "vitest run",
+    "check": "node bin/scorecard.js check",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@tiptap/extension-link": "^2.11.5",
+    "@tiptap/react": "^2.11.5",
+    "@tiptap/starter-kit": "^2.11.5",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "react-router-dom": "^7.9.4"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.10",
+    "@types/react": "^19.1.12",
+    "@types/react-dom": "^19.1.9",
+    "@vitejs/plugin-react": "^4.7.0",
+    "typescript": "^5.9.2",
+    "vite": "^6.3.5",
+    "vitest": "^3.2.4"
+  }
+}

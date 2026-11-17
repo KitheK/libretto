@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "parts": [
+    {
+      "id": "skill",
+      "title": "Cursor skill",
+      "role": "Interview and scaffold",
+      "path": "skills/scorecard/SKILL.md",
+      "provenance": "draft",
+      "source": "generated"
+    },
+    {
+      "id": "kit",
+      "title": "Kit",
+      "role": "Render and Write mode",
+      "path": "scorecard/src",
+      "provenance": "draft",
+      "source": "generated"
+    },
+    {
+      "id": "cli",
+      "title": "CLI",
+      "role": "dev / build / check",
+      "path": "scorecard/bin/scorecard.js",
+      "provenance": "draft",
+      "source": "generated"
+    }
+  ]
+}

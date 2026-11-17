@@ -1,4 +1,4 @@
-import { plates } from "../figures/plates";
+﻿import { plates } from "../figures/plates";
 import type { FigureId } from "../content/manual";
 import { OrnamentFrame } from "./OrnamentFrame";
 

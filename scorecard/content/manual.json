@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "title": "Scorecard",
+  "parts": [
+    { "id": "I", "title": "Orientation", "blurb": "What this site is for." },
+    { "id": "II", "title": "Shape", "blurb": "How the project is built." }
+  ],
+  "chapters": [
+    {
+      "slug": "01-job",
+      "number": "01",
+      "part": "I",
+      "title": "The job",
+      "standfirst": "What Scorecard is trying to do.",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Scorecard is a descriptive manual generator. It interviews, scans, scaffolds, then lets you write.",
+          "provenance": "draft",
+          "source": "generated"
+        },
+        { "type": "status", "provenance": "draft", "source": "generated" }
+      ]
+    },
+    {
+      "slug": "02-shape",
+      "number": "02",
+      "part": "II",
+      "title": "Technical shape",
+      "standfirst": "Parts and how they connect.",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "The kit renders JSON. Generators fill architecture and timeline when evidence exists.",
+          "provenance": "draft",
+          "source": "generated"
+        },
+        { "type": "architecture", "provenance": "draft", "source": "generated" },
+        { "type": "timeline", "provenance": "draft", "source": "generated" }
+      ]
+    }
+  ],
+  "faqs": [
+    {
+      "question": "Does Scorecard grade my project?",
+      "answer": "No. It describes status and evidence only.",
+      "provenance": "draft",
+      "source": "generated"
+    }
+  ]
+}

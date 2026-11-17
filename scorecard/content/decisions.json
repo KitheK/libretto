@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "decisions": [
+    {
+      "id": "json-not-ts",
+      "decision": "Store content as JSON, not TypeScript modules",
+      "alternatives": "Hand-edited TS like Libretto manual.ts",
+      "reason": "Write mode must save without codegen",
+      "outcome": "Editors stay diary-like",
+      "provenance": "draft",
+      "source": "generated"
+    },
+    {
+      "id": "no-grades",
+      "decision": "Describe only; never score",
+      "alternatives": "Rubric scores, letter grades",
+      "reason": "Honesty without judgment",
+      "deadEnd": false,
+      "provenance": "draft",
+      "source": "generated"
+    }
+  ]
+}

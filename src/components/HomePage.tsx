@@ -6,9 +6,8 @@ import { ContentsPanel } from "./ContentsPanel";
 import { PageEnter } from "./PageEnter";
 import { PixelWordmark } from "./PixelWordmark";
 import { Plate } from "./Plate";
+import { PageFootFrieze } from "./PageFootFrieze";
 import { ReadingControls } from "./ReadingControls";
-import { LazyFrieze, OrnamentSuspense, useIdleReady } from "./ornamentLazy";
-
 const ShotStrip = lazy(() => import("./ShotStrip").then((m) => ({ default: m.ShotStrip })));
 const DeskInteractives = lazy(() =>
   import("./desk/DeskInteractives").then((m) => ({ default: m.DeskInteractives })),
@@ -19,7 +18,6 @@ export function HomePage() {
   const [navOpen, setNavOpen] = useState(false);
   const faq = faqs[selected];
   const words = totalWords();
-  const ornamentsReady = useIdleReady(180);
 
   useEffect(() => {
     if (!navOpen) return;
@@ -120,13 +118,6 @@ export function HomePage() {
                 ))}
             </div>
           ))}
-          {ornamentsReady ? (
-            <div className="toc-frieze toc-frieze--foot" aria-hidden="true">
-              <OrnamentSuspense>
-                <LazyFrieze variant="pavot30" height={64} palette="libretto" crop="band" ground={false} animate={false} />
-              </OrnamentSuspense>
-            </div>
-          ) : null}
         </section>
 
         <section aria-labelledby="faq-label">
@@ -157,9 +148,15 @@ export function HomePage() {
           </div>
         </section>
 
+        <p className="colophon">
+          <Link to="/make" data-click="nav">
+            Make your own site like this →
+          </Link>
+        </p>
         <footer className="colophon mono">
           UBCO COSC 499 · CONDUCTOR LIVES IN CAPSTONE-TEAM-1 · LIBRETTO IS THE MANUAL · DEPARTURE MONO 1.500
         </footer>
+        <PageFootFrieze />
       </main>
     </PageEnter>
   );

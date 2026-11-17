@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "size": "standard",
+  "job": {
+    "text": "Scorecard turns a project into a short descriptive site: what was built, what works, what does not, and how to run it.",
+    "provenance": "draft",
+    "source": "generated"
+  },
+  "brief": {
+    "text": "Give authors a diary-like manual for any project type without grading them.",
+    "provenance": "draft",
+    "source": "generated"
+  },
+  "outcome": {
+    "text": "A Vite kit, Write mode, and Cursor skill that scaffold Lite, Standard, or Full sites from an interview.",
+    "provenance": "draft",
+    "source": "generated"
+  },
+  "features": [
+    {
+      "name": "Scorecard summary page",
+      "status": "works",
+      "note": "Always present",
+      "provenance": "draft",
+      "source": "generated"
+    },
+    {
+      "name": "Write mode",
+      "status": "partial",
+      "note": "Dev-only save",
+      "provenance": "draft",
+      "source": "generated"
+    },
+    {
+      "name": "Live product embed",
+      "status": "stubbed",
+      "provenance": "draft",
+      "source": "generated"
+    }
+  ],
+  "knownGap": {
+    "text": "Desktop launcher and hosted Write mode are deferred.",
+    "provenance": "draft",
+    "source": "generated"
+  },
+  "built": {
+    "text": "Interview skill, JSON content model, kit UI, generators, CLI.",
+    "provenance": "draft",
+    "source": "generated"
+  },
+  "borrowed": {
+    "text": "React, Vite, TipTap, Paleologue fonts, Nouveau ornaments (author OSS).",
+    "provenance": "draft",
+    "source": "generated"
+  },
+  "proof": {
+    "text": "Run npx scorecard dev and open /.",
+    "provenance": "draft",
+    "source": "generated"
+  },
+  "next": {
+    "text": "Dogfood on more project types; polish Look gallery.",
+    "provenance": "draft",
+    "source": "generated"
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "form": "build-log",
+  "events": [
+    {
+      "id": "e1",
+      "label": "Spec freeze",
+      "t": 0,
+      "blurb": "Profiles, provenance, launcher locked",
+      "provenance": "draft",
+      "source": "generated"
+    },
+    {
+      "id": "e2",
+      "label": "Kit shell",
+      "t": 1,
+      "blurb": "Routes and Scorecard page",
+      "provenance": "draft",
+      "source": "generated"
+    },
+    {
+      "id": "e3",
+      "label": "Write mode + CLI",
+      "t": 2,
+      "blurb": "Diary editing and one-command launch",
+      "provenance": "draft",
+      "source": "generated"
+    }
+  ]
+}

@@ -5,6 +5,7 @@ import { ManualLayout } from "./components/ManualLayout";
 const HomePage = lazy(() => import("./components/HomePage").then((m) => ({ default: m.HomePage })));
 const ContentsPage = lazy(() => import("./components/ContentsPage").then((m) => ({ default: m.ContentsPage })));
 const ChapterPage = lazy(() => import("./components/ChapterPage").then((m) => ({ default: m.ChapterPage })));
+const MakeYourOwnPage = lazy(() => import("./components/MakeYourOwnPage").then((m) => ({ default: m.MakeYourOwnPage })));
 
 function RouteFallback() {
   return (
@@ -25,6 +26,14 @@ export function App() {
             element={
               <ManualLayout>
                 <ContentsPage />
+              </ManualLayout>
+            }
+          />
+          <Route
+            path="/make"
+            element={
+              <ManualLayout>
+                <MakeYourOwnPage />
               </ManualLayout>
             }
           />

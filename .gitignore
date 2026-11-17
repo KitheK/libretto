@@ -5,3 +5,7 @@ dist
 .wrangler
 .dev.vars
 tools/conductor-live/takes/
+scorecard/node_modules
+scorecard/dist
+scorecard/EXPORT-README-SNIPPET.md
+HANDOFF-round2.md

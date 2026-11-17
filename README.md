@@ -32,3 +32,13 @@ DNS (zone already on Cloudflare): proxied CNAMEs for `499team1.com` and `www` â†
 ## Live Conductor
 
 `public/live/conductor/` is the real Conductor frontend (development @ 9893400a), built unmodified against an in-browser mock backend. Rebuild and re-record with [tools/conductor-live/](tools/conductor-live/README.md).
+
+## Scorecard
+
+Descriptive project manuals (skill + kit): [`scorecard/README.md`](scorecard/README.md) and Cursor skill [`skills/scorecard/`](skills/scorecard/).
+
+```bash
+cd scorecard
+npm install
+npx scorecard dev
+```

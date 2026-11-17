@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "steps": [
+    {
+      "title": "Install Node 20+",
+      "body": "Required for the launcher.",
+      "provenance": "draft",
+      "source": "generated"
+    },
+    {
+      "title": "Start Write mode",
+      "command": "npx scorecard dev",
+      "provenance": "draft",
+      "source": "generated"
+    },
+    {
+      "title": "Publish",
+      "command": "npx scorecard build",
+      "provenance": "draft",
+      "source": "generated"
+    }
+  ],
+  "envNames": [],
+  "demoScript": {
+    "text": "Open / for the Scorecard page. Open /write to edit. Change Look, save, refresh.",
+    "provenance": "draft",
+    "source": "generated"
+  }
+}

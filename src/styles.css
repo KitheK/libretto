@@ -1,4 +1,20 @@
 @font-face {
+  font-family: "Libretto Paléologue";
+  src: url("/fonts/LibrettoPaleologue-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Libretto Paléologue Poster";
+  src: url("/fonts/LibrettoPaleologuePoster-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
   font-family: "Departure Mono";
   src: url("/fonts/DepartureMono-Regular.woff2") format("woff2");
   font-weight: 400;
@@ -187,11 +203,39 @@ input {
   max-width: 100%;
   height: auto;
   color: var(--ink);
-  shape-rendering: crispEdges;
+}
+
+.wordmark-pal {
+  font-family: "Libretto Paléologue", "Newsreader", Georgia, serif;
+  font-weight: 400;
+  font-synthesis: none;
+  font-kerning: normal;
+  line-height: 0.92;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+}
+
+.wordmark-pal--poster {
+  font-family: "Libretto Paléologue Poster", "Libretto Paléologue", Georgia, serif;
+}
+
+.wordmark-pal--lg {
+  width: 100%;
+  max-width: 30rem;
+  overflow: visible;
+}
+
+.wordmark-pal-arc-text {
+  font-family: "Libretto Paléologue Poster", "Libretto Paléologue", Georgia, serif;
+  font-size: 124px;
+  font-weight: 400;
+  font-synthesis: none;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
 }
 
 .home-copy .wordmark {
-  color: var(--action);
+  margin: 0 0 0.2rem;
 }
 
 .demo-callout {
@@ -213,6 +257,13 @@ input {
 .toc-frieze--foot {
   margin: 2rem auto 0.5rem;
   min-height: 3.5rem;
+}
+
+.page-foot-frieze {
+  width: 100%;
+  max-width: 48rem;
+  margin: 2.75rem auto 1.25rem;
+  min-height: 6.5rem;
 }
 
 .sidebar-frieze {
@@ -347,7 +398,7 @@ input {
 
 .contents-panel-mark .wordmark {
   display: block;
-  height: 10px;
+  height: auto;
   width: auto;
   color: var(--ink);
 }

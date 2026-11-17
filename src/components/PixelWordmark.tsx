@@ -1,3 +1,5 @@
+import { useId } from "react";
+
 const GLYPHS: Record<string, string[]> = {
   L: ["10000", "10000", "10000", "10000", "10000", "10000", "11111"],
   I: ["11111", "00100", "00100", "00100", "00100", "00100", "11111"],
@@ -8,9 +10,41 @@ const GLYPHS: Record<string, string[]> = {
   O: ["01110", "10001", "10001", "10001", "10001", "10001", "01110"],
 };
 
-/** Blue pixel wordmark (original Libretto mark). */
+/**
+ * Hero (cell > 8): arched Paleologue poster capitals.
+ * Chrome: original blue pixel mark (hamburger / drawer).
+ */
 export function PixelWordmark({ text, cell = 8 }: { text: string; cell?: number }) {
-  const letters = text.toUpperCase().split("");
+  const label = text.toUpperCase();
+
+  if (cell > 8) {
+    const pathId = useId().replace(/:/g, "");
+    // Stronger STANDARD-style arch; viewBox keeps copy-column width.
+    const w = 720;
+    const h = 200;
+    const y = 168;
+    const rise = 88;
+    return (
+      <svg
+        className="wordmark wordmark-pal wordmark-pal--lg wordmark-pal--poster"
+        viewBox={`0 0 ${w} ${h}`}
+        role="img"
+        aria-label={label}
+        preserveAspectRatio="xMidYMid meet"
+      >
+        <defs>
+          <path id={pathId} d={`M 16 ${y} Q ${w / 2} ${y - rise} ${w - 16} ${y}`} />
+        </defs>
+        <text className="wordmark-pal-arc-text">
+          <textPath href={`#${pathId}`} startOffset="50%" textAnchor="middle">
+            {label}
+          </textPath>
+        </text>
+      </svg>
+    );
+  }
+
+  const letters = label.split("");
   const advance = 6 * cell;
   const width = letters.length * advance - cell;
   const height = 7 * cell;
@@ -35,7 +69,7 @@ export function PixelWordmark({ text, cell = 8 }: { text: string; cell?: number 
       height={height}
       viewBox={`0 0 ${width} ${height}`}
       role="img"
-      aria-label={text}
+      aria-label={label}
       shapeRendering="crispEdges"
     >
       {rects.map((rect) => (
