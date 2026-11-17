@@ -1,0 +1,16 @@
+{
+  "name": "libretto-scorecard",
+  "owner": {
+    "name": "Kithe"
+  },
+  "metadata": {
+    "description": "Scorecard — descriptive project manuals (never grades). Libretto is the reference Full site."
+  },
+  "plugins": [
+    {
+      "name": "scorecard",
+      "source": "plugins/scorecard",
+      "description": "Interview, scan, and scaffold a Scorecard site with Write mode"
+    }
+  ]
+}

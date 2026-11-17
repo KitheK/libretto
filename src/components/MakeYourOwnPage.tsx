@@ -57,9 +57,19 @@ npx scorecard dev`}
         </p>
       </section>
 
+      <section className="part-block">
+        <h2 className="part-name">5. Agents</h2>
+        <p className="part-blurb">
+          The same Scorecard skill ships for Cursor (marketplace plugin under{" "}
+          <span className="mono">plugins/scorecard</span>), Claude Code (
+          <span className="mono">.claude/skills/scorecard</span>), and Codex (
+          <span className="mono">.agents/skills/scorecard</span>). Libretto itself is the Full-size example of what
+          Scorecard produces.
+        </p>
+      </section>
+
       <p className="part-blurb">
-        Details live in <span className="mono">scorecard/README.md</span> and{" "}
-        <span className="mono">skills/scorecard/</span>.{" "}
+        Full write-up: <span className="mono">scorecard/README.md</span>.{" "}
         <Link to="/" data-click="nav">
           Back to Libretto
         </Link>

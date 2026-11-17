@@ -1,0 +1,9 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "scorecard",
+  "description": "Descriptive project manuals for any repo: interview, scan, scaffold a diary-like site with Write mode. Never grades.",
+  "version": "0.1.0",
+  "author": {
+    "name": "Kithe"
+  }
+}

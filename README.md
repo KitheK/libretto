@@ -35,10 +35,19 @@ DNS (zone already on Cloudflare): proxied CNAMEs for `499team1.com` and `www` â†
 
 ## Scorecard
 
-Descriptive project manuals (skill + kit): [`scorecard/README.md`](scorecard/README.md) and Cursor skill [`skills/scorecard/`](skills/scorecard/).
+Descriptive project manuals (skill + kit). Libretto is the reference Full site; Scorecard is how you make the next one.
+
+- Kit docs: [`scorecard/README.md`](scorecard/README.md)
+- Skill (canonical): [`skills/scorecard/`](skills/scorecard/)
+- Cursor plugin (marketplace): [`plugins/scorecard/`](plugins/scorecard/)
+- Claude: [`.claude/skills/scorecard/`](.claude/skills/scorecard/)
+- Codex: [`.agents/skills/scorecard/`](.agents/skills/scorecard/)
+- On the site: [/make](https://499team1.com/make) (after deploy)
 
 ```bash
 cd scorecard
 npm install
 npx scorecard dev
 ```
+
+Sync skill copies after editing `skills/scorecard`: `node scripts/sync-scorecard-skills.mjs`

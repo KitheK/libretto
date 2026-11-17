@@ -1,0 +1,19 @@
+{
+  "name": "scorecard",
+  "displayName": "Scorecard",
+  "version": "0.1.0",
+  "description": "Descriptive project manuals for any repo: interview, scan, scaffold a diary-like site with Write mode. Never grades. Libretto is the reference Full manual built in this pattern.",
+  "author": {
+    "name": "Kithe"
+  },
+  "license": "MIT",
+  "keywords": [
+    "documentation",
+    "manual",
+    "portfolio",
+    "hackathon",
+    "coursework",
+    "provenance",
+    "write-mode"
+  ]
+}
