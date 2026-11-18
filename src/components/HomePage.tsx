@@ -149,12 +149,13 @@ export function HomePage() {
         </section>
 
         <p className="colophon">
-          <Link to="/make" data-click="nav">
+          <a href="https://github.com/KitheK/scorecard" data-click="nav">
             Make your own site like this →
-          </Link>
+          </a>
         </p>
         <footer className="colophon mono">
-          UBCO COSC 499 · CONDUCTOR LIVES IN CAPSTONE-TEAM-1 · LIBRETTO IS THE MANUAL · DEPARTURE MONO 1.500
+          UBCO COSC 499 · CONDUCTOR LIVES IN CAPSTONE-TEAM-1 · LIBRETTO IS THE MANUAL · DEPARTURE MONO 1.500 ·{" "}
+          <a href="https://github.com/KitheK">Made by Kithe</a>
         </footer>
         <PageFootFrieze />
       </main>
